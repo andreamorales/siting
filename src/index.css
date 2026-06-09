@@ -370,6 +370,8 @@ body,
   width: 28%;
   height: auto;
   overflow: visible;
+  color: var(--ink);
+  fill: currentColor;
 }
 
 .home-logo-part {

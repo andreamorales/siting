@@ -42,6 +42,12 @@
   /* surfaces */
   --paper: #FDFDFC;
 
+  /* neutrals */
+  --ink: #1C1B1B;
+  --solid: #1C1B1B;
+  --rail: #1C1B1B;
+  --scorebg: #1C1B1B;
+
   /* typography */
   --font-title: 'Kode Mono', ui-monospace, monospace;
   --font-content: 'IBM Plex Mono', ui-monospace, monospace;

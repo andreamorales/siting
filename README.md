@@ -1,6 +1,6 @@
 # Siting
 
-Design prototypes for the Siting tool (Cursor design canvas export).
+MeterZero co-siting tool — design prototypes and map experience.
 
 ## Run locally
 
@@ -19,12 +19,4 @@ Then open:
 
 - **Vite + React** — dev server and bundling
 - **DaisyUI** — Tailwind component library (theme toggle, buttons)
-- **react-map-gl + MapLibre GL** — vector fleet map with CARTO basemaps (same engine as mapcn, no shadcn)
-
-## Legacy static previews
-
-The original HTML exports (`siting-tool.html`, `experience-v*.html`) still work with a static server:
-
-```bash
-python3 -m http.server 8080
-```
+- **react-map-gl + MapLibre GL** — vector fleet map with CARTO basemaps

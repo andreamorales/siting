@@ -6,7 +6,7 @@ import React from 'react';
 const T = {
   paper: '#FDFDFC',
   card: '#FFFFFF',
-  ink: '#0B0C0E',
+  ink: '#1C1B1B',
   ink2: '#33373D',
   mut: '#767C84',
   faint: '#A6ABB1',
@@ -193,18 +193,18 @@ if (typeof document !== 'undefined' && !document.getElementById('siting-base')) 
     .st-news-ticker-link:hover .st-news-ticker-headline { color: var(--ink); text-decoration: underline; text-underline-offset: 2px; }
     .st-board, .st-board * { box-sizing:border-box; }
     .st-board {
-      --paper:#FDFDFC; --card:#FFFFFF; --ink:#0B0C0E; --ink2:#33373D; --mut:#767C84; --faint:#A6ABB1;
-      --line:#E6E8EA; --line2:#F0F1F2; --grid:rgba(11,12,14,0.05);
-      --solid:#0B0C0E; --solidfg:#FFFFFF; --rail:#0B0C0E; --mapbg:#FBFBFA; --mapcall:rgba(251,251,250,0.85);
+      --paper:#FDFDFC; --card:#FFFFFF; --ink:#1C1B1B; --ink2:#33373D; --mut:#767C84; --faint:#A6ABB1;
+      --line:#E6E8EA; --line2:#F0F1F2; --grid:rgba(28,27,27,0.05);
+      --solid:#1C1B1B; --solidfg:#FFFFFF; --rail:#1C1B1B; --mapbg:#FBFBFA; --mapcall:rgba(251,251,250,0.85);
       --pos:#177245; --warn:#A4670B; --neg:#B0201B; --frame:#C2C7CE;
-      --scorebg:#0B0C0E; --scorefg:#F4F5F5; --scoremut:rgba(244,245,245,0.62);
+      --scorebg:#1C1B1B; --scorefg:#F4F5F5; --scoremut:rgba(244,245,245,0.62);
       --scoreline:rgba(255,255,255,0.16); --scoreline2:rgba(255,255,255,0.08); --scoreaccent:#6EE7A8;
       font-family:${T.font}; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
     .st-board.st-dark {
       --paper:#0A0B0E; --card:#14171C; --ink:#ECEEF1; --ink2:#C4C9D0; --mut:#8A909A; --faint:#5C626B;
       --line:#2C313A; --line2:#22262C; --grid:rgba(255,255,255,0.06);
-      --solid:#ECEEF1; --solidfg:#0A0B0E; --rail:#05060A; --mapbg:#0E1116; --mapcall:rgba(14,17,22,0.85);
+      --solid:#ECEEF1; --solidfg:#1C1B1B; --rail:#121110; --mapbg:#0E1116; --mapcall:rgba(14,17,22,0.85);
       --pos:#43BE86; --warn:#E0A53E; --neg:#E26B5C; --frame:#2C313A;
       --scorebg:#0E1522; --scorefg:#ECEEF1; --scoremut:rgba(236,238,241,0.58);
       --scoreline:rgba(255,255,255,0.12); --scoreline2:rgba(255,255,255,0.06); --scoreaccent:#5B83D8;

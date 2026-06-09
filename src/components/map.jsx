@@ -3,7 +3,7 @@ import {
   SITE, Mono, Tag, Eyebrow, RiskRow, MissingRow,
   MiniMap, FactorCard, factorByKey, NewsTicker, FactorBreakdown,
 } from '../lib/shared.jsx';
-import { HeaderV1 } from './brandHeaders.jsx';
+import { Header } from './brandHeaders.jsx';
 
 const F = {
   env: factorByKey('Env'),
@@ -64,10 +64,10 @@ function MapView({ dark = false, mode = 'detail', onToggleTheme }) {
   return (
     <div
       className={'st-board siting-page' + (dark ? ' st-dark' : '')}
-      data-screen-label="Map · Editorial Mono"
+      data-screen-label="Map · Site"
       style={{ background: 'var(--paper)', color: 'var(--ink)' }}
     >
-      <HeaderV1 mode={mode} dark={dark} onToggleTheme={onToggleTheme} primaryLabel="Save site" />
+      <Header mode={mode} dark={dark} onToggleTheme={onToggleTheme} primaryLabel="Save site" />
 
       <div className="siting-page-body">
         <header className="siting-site-header">

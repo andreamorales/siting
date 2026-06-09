@@ -19,7 +19,7 @@ function Mono({ children, s = 11, c = 'var(--mut)', w = 500, ls = 0.6, style }) 
   return <span className="st-mono" style={{ fontSize: s, color: c, fontWeight: w, letterSpacing: ls, ...style }}>{children}</span>;
 }
 
-export function HeaderV1({
+export function Header({
   mode = 'fleet',
   dark = false,
   onToggleTheme,

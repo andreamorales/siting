@@ -1,6 +1,6 @@
 import React from 'react';
 import FleetMap from './FleetMap.jsx';
-import { HeaderV1 } from './brandHeaders.jsx';
+import { Header } from './brandHeaders.jsx';
 
 const FLEET = [
   { id: 'PB-07', name: 'Permian Basin', region: 'TX', coords: '31.99°N 102.07°W', grade: 'A+', score: 92, tier: 'PRIME', gw: '1.8', status: 'ANALYSIS COMPLETE', updated: '2d ago', clickable: true },
@@ -109,7 +109,7 @@ function FleetHome({ dark = false, onOpen, onToggleTheme }) {
 
   return (
     <div className={'st-board' + (dark ? ' st-dark' : '')} data-screen-label="Map · Fleet" style={{ width: '100vw', height: '100vh', background: 'var(--paper)', color: 'var(--ink)', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
-      <HeaderV1 mode="fleet" dark={dark} onToggleTheme={onToggleTheme} onPrimaryAction={go} />
+      <Header mode="fleet" dark={dark} onToggleTheme={onToggleTheme} onPrimaryAction={go} />
       <div style={{ flex: 1, minHeight: 0, display: 'flex' }}>
         <FleetMap dark={dark} hover={hover} setHover={setHover} onOpenSite={go} accent={accent} />
         <FleetRoster hover={hover} setHover={setHover} go={go} fleetAvg={fleetAvg} />
