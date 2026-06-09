@@ -18,6 +18,7 @@ export default {
         lg: 'var(--s-lg)',
         xl: 'var(--s-xl)',
         xxl: 'var(--s-xxl)',
+        '3xl': 'var(--s-3xl)',
       },
       fontSize: {
         xxs: ['var(--t-xxs)', { lineHeight: '1.35' }],
@@ -27,6 +28,7 @@ export default {
         lg: ['var(--t-lg)', { lineHeight: '1.35' }],
         xl: ['var(--t-xl)', { lineHeight: '1.2' }],
         xxl: ['var(--t-xxl)', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
+        hero: ['var(--t-hero)', { lineHeight: '1.08', letterSpacing: '-0.02em' }],
         display: ['var(--t-display)', { lineHeight: '0.74', letterSpacing: '-0.04em' }],
       },
       minHeight: {

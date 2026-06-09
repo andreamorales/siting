@@ -1,41 +1,43 @@
 /**
- * Siting design tokens — uniform xxs → xxl scale (%-based).
+ * Siting design tokens — uniform xxs → 3xl scale (em-based).
  * Use via CSS var(--s-md), var(--t-lg), or Tailwind gap-md / text-lg / p-xl.
- * Spacing % is relative to the containing block width (padding) or flex gap.
- * Type % is relative to .st-board font-size (100% = board base).
+ * Spacing and type em values resolve from .st-board font-size (100% = 16px default).
  */
 .st-board {
   font-size: 100%;
 
   /* spacing */
-  --s-xxs: 0.35%;
-  --s-xs: 0.5%;
-  --s-sm: 0.75%;
-  --s-md: 1%;
-  --s-lg: 1.5%;
-  --s-xl: 2.25%;
-  --s-xxl: 3.5%;
+  --s-xxs: 0.35em;
+  --s-xs: 0.5em;
+  --s-sm: 0.75em;
+  --s-md: 1em;
+  --s-lg: 1.5em;
+  --s-xl: 2.25em;
+  --s-xxl: 3.5em;
+  --s-3xl: 5.25em;
 
-  /* typography (em-equivalent % of board base) */
-  --t-xxs: 62.5%;
-  --t-xs: 75%;
-  --t-sm: 87.5%;
-  --t-md: 100%;
-  --t-lg: 125%;
-  --t-xl: 150%;
-  --t-xxl: 250%;
-  --t-display: 750%;
+  /* typography */
+  --t-xxs: 0.625em;
+  --t-xs: 0.75em;
+  --t-sm: 0.875em;
+  --t-md: 1em;
+  --t-lg: 1.25em;
+  --t-xl: 1.5em;
+  --t-xxl: 2.5em;
+  --t-hero: 5em;
+  --t-display: 7.5em;
 
-  /* layout (structural %) */
-  --layout-header-h: 8%;
-  --layout-pad-x: var(--s-xxl);
+  /* layout */
+  --layout-header-h: 3.5em;
+  --layout-pad-x: var(--s-xl);
   --layout-pad-y: var(--s-lg);
-  --layout-summary-max: 22%;
-  --layout-summary-min: 16%;
-  /* factor grid only (summary card unaffected) */
+  --layout-btn-pad-y: var(--s-sm);
+  --layout-btn-pad-x: var(--s-md);
+  --layout-hero-gap: var(--s-md);
+  --layout-summary-max: 18em;
+  --layout-summary-min: 14em;
   --layout-factor-row-min: 22vh;
   --layout-factor-card-min: 60vh;
-  /* fixed footprint — % height on header was collapsing / overflowing */
   --layout-minimap-w: 16.25rem;
   --layout-minimap-h: 7.25rem;
 
@@ -45,8 +47,13 @@
   /* neutrals */
   --ink: #1C1B1B;
   --solid: #1C1B1B;
+  --solidfg: #FFFFFF;
   --rail: #1C1B1B;
   --scorebg: #1C1B1B;
+
+  /* accent */
+  --banner: var(--ink);
+  --banner-fg: var(--solidfg);
 
   /* typography */
   --font-title: 'Kode Mono', ui-monospace, monospace;

@@ -36,12 +36,11 @@ const SITE = {
   subscores: [
     { k: 'Env', long: 'Environmental Risk', v: 61 },
     { k: 'Grid', long: 'Grid Capacity', v: 96 },
-    { k: 'Reg', long: 'Regulatory Concerns', v: 84 },
+    { k: 'Reg', long: 'Regulatory Context', v: 84 },
     { k: 'Labor', long: 'Workforce Capacity', v: 78 },
     { k: 'Fiber', long: 'Fiber / Latency', v: 88 },
     { k: 'Social', long: 'Community Sentiment', v: 72 },
     { k: 'Land', long: 'Land & Zoning', v: 91 },
-    { k: 'Seismic', long: 'Seismic Stability', v: 67 },
     { k: 'Water', long: 'Water Supply', v: 54 },
   ],
   risks: [
@@ -199,6 +198,7 @@ if (typeof document !== 'undefined' && !document.getElementById('siting-base')) 
       --pos:#177245; --warn:#A4670B; --neg:#B0201B; --frame:#C2C7CE;
       --scorebg:#1C1B1B; --scorefg:#F4F5F5; --scoremut:rgba(244,245,245,0.62);
       --scoreline:rgba(255,255,255,0.16); --scoreline2:rgba(255,255,255,0.08); --scoreaccent:#6EE7A8;
+      --banner:var(--ink); --banner-fg:var(--solidfg);
       font-family:${T.font}; -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
     }
     .st-board.st-dark {
@@ -271,7 +271,7 @@ function Tag({ children, accent = 'var(--ink)', filled }) {
 // ─────────────────────────── CONUS basemap ───────────────────────────
 // Geospatial scatter: graticule + coordinate ticks + faint city dots +
 // fleet pins. Active site gets a pulsing ring + crosshair + callout.
-function Basemap({ accent = 'var(--ink)', height = 220, showCrosshair = true, dense = false, compact = false }) {
+function Basemap({ accent = 'var(--ink)', height = 220, showCrosshair = true, showCallout = true, hideMePin = false, dense = false, compact = false }) {
   const c = { bg: 'var(--mapbg)', grid: 'var(--grid)', hatch: 'var(--line2)', tick: 'var(--ink2)', faint: 'var(--faint)', dot: 'var(--faint)', pin: 'var(--card)', callTx: 'var(--ink)', callBg: 'var(--mapcall)' };
   const cities = [
     [14, 38], [20, 60], [29, 22], [38, 52], [47, 18], [52, 70],
@@ -314,10 +314,12 @@ function Basemap({ accent = 'var(--ink)', height = 220, showCrosshair = true, de
               <span style={{ position: 'absolute', left: '50%', top: '50%', width: 18, height: 18, borderRadius: '50%', border: `1.5px solid ${accent}`, transform: 'translate(-50%,-50%)', animation: 'st-pulse 2.6s ease-out infinite' }} />
             </React.Fragment>
           )}
-          <span style={{ position: 'relative', display: 'block', width: p.me ? 11 : 7, height: p.me ? 11 : 7,
-            transform: 'rotate(45deg)', background: p.me ? accent : c.pin,
-            border: `1.5px solid ${p.me ? accent : c.faint}` }} />
-          {p.me && (
+          {!(p.me && hideMePin) && (
+            <span style={{ position: 'relative', display: 'block', width: p.me ? 11 : 7, height: p.me ? 11 : 7,
+              transform: 'rotate(45deg)', background: p.me ? accent : c.pin,
+              border: `1.5px solid ${p.me ? accent : c.faint}` }} />
+          )}
+          {p.me && showCallout && (
             <span className="st-mono" style={{ position: 'absolute', left: 14, top: -5, whiteSpace: 'nowrap',
               fontSize: 10, fontWeight: 700, color: c.callTx, background: c.callBg, padding: '1px 4px', letterSpacing: 0.5 }}>
               {p.id} · {p.g}

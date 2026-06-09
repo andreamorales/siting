@@ -27,7 +27,7 @@ export function Header({
   primaryLabel = '+ Create Your Own',
 }) {
   return (
-    <header className="flex h-header w-full shrink-0 items-center justify-between border-b border-[color:var(--line)] bg-[color:var(--paper)] px-xxl box-border">
+    <header className="flex h-header w-full shrink-0 items-center justify-between border-b border-[color:var(--line)] bg-[color:var(--paper)] px-xl box-border">
       <div style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
         <AtomGridWordmark variant="split" size={20} />
         <span className="st-subtitle" style={{ fontSize: 10, color: 'var(--faint)', letterSpacing: '0.14em' }}>CO-SITING INTELLIGENCE</span>
