@@ -1,0 +1,48 @@
+/**
+ * Siting design tokens — uniform xxs → xxl scale (%-based).
+ * Use via CSS var(--s-md), var(--t-lg), or Tailwind gap-md / text-lg / p-xl.
+ * Spacing % is relative to the containing block width (padding) or flex gap.
+ * Type % is relative to .st-board font-size (100% = board base).
+ */
+.st-board {
+  font-size: 100%;
+
+  /* spacing */
+  --s-xxs: 0.35%;
+  --s-xs: 0.5%;
+  --s-sm: 0.75%;
+  --s-md: 1%;
+  --s-lg: 1.5%;
+  --s-xl: 2.25%;
+  --s-xxl: 3.5%;
+
+  /* typography (em-equivalent % of board base) */
+  --t-xxs: 62.5%;
+  --t-xs: 75%;
+  --t-sm: 87.5%;
+  --t-md: 100%;
+  --t-lg: 125%;
+  --t-xl: 150%;
+  --t-xxl: 250%;
+  --t-display: 750%;
+
+  /* layout (structural %) */
+  --layout-header-h: 8%;
+  --layout-pad-x: var(--s-xxl);
+  --layout-pad-y: var(--s-lg);
+  --layout-summary-max: 22%;
+  --layout-summary-min: 16%;
+  /* factor grid only (summary card unaffected) */
+  --layout-factor-row-min: 22vh;
+  --layout-factor-card-min: 60vh;
+  /* fixed footprint — % height on header was collapsing / overflowing */
+  --layout-minimap-w: 16.25rem;
+  --layout-minimap-h: 7.25rem;
+
+  /* surfaces */
+  --paper: #FDFDFC;
+
+  /* typography */
+  --font-title: 'Kode Mono', ui-monospace, monospace;
+  --font-content: 'IBM Plex Mono', ui-monospace, monospace;
+}

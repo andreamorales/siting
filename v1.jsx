@@ -9,7 +9,7 @@ function VEditorial({ dark = false }) {
       {/* top bar */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderBottom: `1px solid ${'var(--line)'}`, paddingBottom: 16 }}>
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 14 }}>
-          <span style={{ fontSize: 20, fontWeight: 800, letterSpacing: -0.6 }}>TERRA<span style={{ fontWeight: 400 }}>SITE</span></span>
+          <span style={{ fontSize: 20, fontWeight: 800, letterSpacing: -0.6 }}>ATOM<span style={{ fontWeight: 400 }}>GRID</span></span>
           <Mono size={10} ls={1.5} color={'var(--faint)'}>CO-SITING INTELLIGENCE</Mono>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', gap: 18 }}>

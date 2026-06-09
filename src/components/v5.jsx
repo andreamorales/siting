@@ -1,6 +1,11 @@
 // v5.jsx — "Dual Vector" · blue+orange mission console, radar sub-scores.
 // Photo news · minimap docked bottom-right.
-const { T: T5, SITE: S5, Mono: Mono5, Eyebrow: Eyebrow5, Tag: Tag5, MiniMap: MiniMap5, Radar: Radar5, CapacityBars: CapBars5, RiskRow: RiskRow5, NewsFeature: NewsFeature5, NewsPhotoRow: NewsRow5, MissingRow: MissRow5, DataRow: DataRow5 } = window;
+import React from 'react';
+import {
+  T as T5, SITE as S5, Mono as Mono5, Eyebrow as Eyebrow5, Tag as Tag5, MiniMap as MiniMap5,
+  Radar as Radar5, CapacityBars as CapBars5, RiskRow as RiskRow5, NewsFeature as NewsFeature5,
+  NewsPhotoRow as NewsRow5, MissingRow as MissRow5, DataRow as DataRow5,
+} from '../lib/shared.jsx';
 const B5 = T5.blue,O5 = T5.orange;
 
 function VRadar() {
@@ -98,4 +103,4 @@ function VRadar() {
     </div>);
 
 }
-window.VRadar = VRadar;
+export { VRadar };

@@ -165,7 +165,7 @@ function FleetHome({ dark = true, onOpen, onToggleTheme, accent = '#5B83D8', fon
       {/* top bar */}
       <header style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '0 22px', height: 60, borderBottom: `1px solid var(--line)`, flexShrink: 0, background: 'var(--card)' }}>
         <span style={{ width: 28, height: 28, background: accent, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 15 }}>T</span>
-        <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.3 }}>TERRASITE</span>
+        <span style={{ fontSize: 18, fontWeight: 800, letterSpacing: -0.3 }}>ATOMGRID</span>
         <Mono s={10} ls={1.4} c="var(--faint)">/ FLEET COMMAND</Mono>
         <nav style={{ display: 'flex', gap: 20, marginLeft: 28 }}>
           <Mono s={11.5} c="var(--ink)" w={600}>Fleet Map</Mono>

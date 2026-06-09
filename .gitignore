@@ -1,3 +1,5 @@
 .DS_Store
 .design-canvas.state.json
 .thumbnail
+node_modules
+dist

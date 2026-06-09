@@ -140,7 +140,7 @@ function VConsole({ dark = false }) {
         {/* brand bar */}
         <div style={{ ...cell, gridArea: 'brand', flexDirection: 'row', alignItems: 'center', gap: 13, padding: '13px 18px' }}>
           <span style={{ width: 26, height: 26, background: P.acc, display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 700, fontSize: 14 }}>T</span>
-          <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: 0.5, color: 'var(--ink)' }}>TERRASITE</span>
+          <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: 0.5, color: 'var(--ink)' }}>ATOMGRID</span>
           <M2 s={10} ls={1.2} c={'var(--faint)'}>/ SITE ANALYSIS</M2>
           <span style={{ width: 1, height: 22, background: 'var(--line)', margin: '0 4px' }} />
           <span style={{ fontSize: 18, fontWeight: 600, letterSpacing: -0.3, whiteSpace: 'nowrap', color: 'var(--ink)' }}>{S2.name}</span>
