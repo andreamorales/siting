@@ -3,6 +3,9 @@ import HomeLogo from '../components/HomeLogo';
 import HomeMapOrb from '../components/HomeMapOrb';
 import HomeSiteBreakdown, { FLEET_SITES } from '../components/HomeSiteBreakdown';
 import HomeSiteNews from '../components/HomeSiteNews';
+import HomeBackgroundHeadline from '../components/HomeBackgroundHeadline';
+import HomeCitationRef from '../components/HomeCitationRef';
+import HomeTeamSection from '../components/HomeTeamSection';
 import HomeContactPulses from '../components/HomeContactPulses';
 import HomeTabs from '../components/HomeTabs';
 
@@ -188,6 +191,16 @@ export default function HomePage() {
             ref={(node) => { sectionRefs.current[tab.id] = node; }}
             className={`home-section home-section--${tab.id}`}
           >
+            {tab.id === 'background' && (
+              <>
+                <div className="home-section-float-card home-section-float-card--left">
+                  <img src="/images/datacenter.png" alt="" />
+                </div>
+                <div className="home-section-float-card home-section-float-card--right">
+                  <img src="/images/coolingtower.png" alt="" />
+                </div>
+              </>
+            )}
             {tab.id === 'contact' && (
               <>
                 <div className="home-section-reticule" aria-hidden="true">
@@ -201,17 +214,49 @@ export default function HomePage() {
               {tab.id === 'background' ? (
                 <>
                   <p className="home-section-eyebrow st-title">Background</p>
-                  <h2 className="home-section-headline">AI needs nuclear energy.</h2>
+                  <HomeBackgroundHeadline />
                   <p className="home-section-text">
                     Since 2017, the United States has seen a surge in data center demand due to
-                    increasing interest in cryptocurrency and the use of AI. Data center energy use
-                    is expected to continue increasing, potentially doubling to account for over 9%
-                    of US electricity use by 2030 (between 325 and 580 TWh).
+                    increasing interest in cryptocurrency and the use of AI
+                    <HomeCitationRef n={1} href="https://doi.org/10.71468/P1WC7Q">
+                      Arman Shehabi, Alex Hubbard, Alex Newkirk, Nuoa Lei, Md Abu Bakkar Siddik,
+                      Billie Holecek, Jonathan Koomey, Eric Masanet, and Dale Sartor. 2024 United
+                      States data center energy usage report. Lawrence Berkeley National Laboratory;
+                      2025. doi:10.71468/P1WC7Q
+                    </HomeCitationRef>
+                    . Data center energy use is expected to continue increasing, potentially doubling
+                    to account for over 9% of US electricity use by 2030 (between 325 and 580 TWh)
+                    <HomeCitationRef n={2}>
+                      Aljbour J, Wilson T, Patel P. Powering intelligence: Analyzing artificial
+                      intelligence and data center energy consumption. EPRI White Paper no 3002028905.
+                      2024.
+                    </HomeCitationRef>
+                    .
                   </p>
                   <p className="home-section-text">
                     Recent announcements by technology companies such as Amazon, Microsoft, and Google
                     make clear their interests in nuclear-powered data centers, largely to serve
-                    growing AI data center energy demand.
+                    growing AI data center energy demand
+                    <HomeCitationRef
+                      n={3}
+                      href="https://www.datacenterdynamics.com/en/news/aws-acquires-talens-nuclear-data-center-campus-in-pennsylvania/"
+                    >
+                      AWS acquires Talen’s nuclear data center campus in Pennsylvania. 4 Mar 2024
+                      [cited 25 Mar 2025]. Available: https://www.datacenterdynamics.com/en/news/aws-acquires-talens-nuclear-data-center-campus-in-pennsylvania/
+                    </HomeCitationRef>
+                    <HomeCitationRef
+                      n={4}
+                      href="https://www.orrick.com/en/News/2024/10/Carbon-Free-Energy-Microsoft-Signs-20-Year-PPA-with-Constellation"
+                    >
+                      Carbon-Free Energy: Microsoft Signs 20-Year PPA with Constellation to Launch
+                      the Crane Clean Energy Center and Restart Three Mile Island Unit 1. [cited 25 Mar
+                      2025]. Available: https://www.orrick.com/en/News/2024/10/Carbon-Free-Energy-Microsoft-Signs-20-Year-PPA-with-Constellation
+                    </HomeCitationRef>
+                    <HomeCitationRef n={5} href="https://doi.org/10.1063/pt.3.5020">
+                      Pell H, Hearty R, Allard D. Why did the Three Mile Island Unit 1 reactor close?
+                      Phys Today. 2022;75: 46–52. doi:10.1063/pt.3.5020
+                    </HomeCitationRef>
+                    .
                   </p>
                   <p className="home-section-text">
                     Our work aims to understand possible data center–nuclear power plant co-location
@@ -219,6 +264,8 @@ export default function HomePage() {
                     center, nuclear plant, and electric power infrastructure development.
                   </p>
                 </>
+              ) : tab.id === 'team' ? (
+                <HomeTeamSection />
               ) : tab.id === 'contact' ? (
                 <div className="home-section-contact">
                   <img className="home-section-contact-logo" src="/logo/meterzero_horizontal.svg" alt="MeterZero" />
