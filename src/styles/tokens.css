@@ -31,7 +31,7 @@
   --layout-header-h: 3.5em;
   --layout-pad-x: var(--s-xl);
   --layout-pad-y: var(--s-lg);
-  --layout-btn-pad-y: var(--s-sm);
+  --layout-btn-pad-y: var(--s-xs);
   --layout-btn-pad-x: var(--s-md);
   --layout-hero-gap: var(--s-md);
   --layout-summary-max: 18em;

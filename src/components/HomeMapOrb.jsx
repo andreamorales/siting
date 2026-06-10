@@ -53,18 +53,26 @@ function PinMarker() {
   );
 }
 
-function SiteMarker({ active }) {
+function SiteMarker({ site, active, onHover, onSelect }) {
   return (
-    <div className={'home-site-marker' + (active ? ' home-site-marker--active' : '')}>
+    <button
+      type="button"
+      className={'home-site-marker' + (active ? ' home-site-marker--active' : '')}
+      aria-label={`View ${site.name}`}
+      aria-current={active ? 'true' : undefined}
+      onMouseEnter={() => onHover?.(site.i)}
+      onFocus={() => onHover?.(site.i)}
+      onClick={() => onSelect?.(site.i)}
+    >
       <span className="home-site-marker-dot" aria-hidden="true" />
       <span className="home-site-marker-pin" aria-hidden="true">
         <PinMarker />
       </span>
-    </div>
+    </button>
   );
 }
 
-export default function HomeMapOrb({ activeIdx = 0 }) {
+export default function HomeMapOrb({ activeIdx = 0, onSiteHover, onSiteSelect }) {
   const [mapStyle, setMapStyle] = useState(null);
 
   useEffect(() => {
@@ -104,7 +112,12 @@ export default function HomeMapOrb({ activeIdx = 0 }) {
         >
           {FLEET_SITES.map((site, i) => (
             <Marker key={site.id} longitude={site.lng} latitude={site.lat} anchor="center">
-              <SiteMarker active={i === activeIdx} />
+              <SiteMarker
+                site={{ ...site, i }}
+                active={i === activeIdx}
+                onHover={onSiteHover}
+                onSelect={onSiteSelect}
+              />
             </Marker>
           ))}
         </Map>

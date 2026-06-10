@@ -88,7 +88,7 @@ export const FLEET_SITES = [
   },
 ];
 
-const FADE_MS = 320;
+const FADE_MS = 520;
 
 export default function HomeSiteBreakdown({ activeIdx = 0 }) {
   const [shownIdx, setShownIdx] = React.useState(activeIdx);
@@ -115,17 +115,15 @@ export default function HomeSiteBreakdown({ activeIdx = 0 }) {
   return (
     <div className={cardClass}>
       <div className="home-site-card-header">
-        <div className="home-site-card-grade">{site.grade}</div>
-        <div className="home-site-card-meta">
-          <span className="home-site-card-id">{site.id}</span>
-          <span className="home-site-card-tier">{site.tier}</span>
-        </div>
+        <span className="home-site-card-grade">{site.grade}</span>
+        <span className="home-site-card-id">{site.id}</span>
+        <span className="home-site-card-tier">{site.tier}</span>
       </div>
 
       <div className="home-site-card-body">
         {site.subscores.map((factor) => (
-          <div key={factor.k} className="home-site-factor">
-            <span className="home-site-factor-label">{factor.long}</span>
+          <div key={factor.k} className="home-site-factor" title={factor.long}>
+            <span className="home-site-factor-k">{factor.k}</span>
             <div className="home-site-factor-track">
               <div
                 className="home-site-factor-fill"
@@ -135,6 +133,7 @@ export default function HomeSiteBreakdown({ activeIdx = 0 }) {
                 }}
               />
             </div>
+            <span className="home-site-factor-v">{factor.v}</span>
           </div>
         ))}
       </div>

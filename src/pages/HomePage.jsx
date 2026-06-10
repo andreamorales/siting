@@ -2,6 +2,8 @@ import React from 'react';
 import HomeLogo from '../components/HomeLogo';
 import HomeMapOrb from '../components/HomeMapOrb';
 import HomeSiteBreakdown, { FLEET_SITES } from '../components/HomeSiteBreakdown';
+import HomeSiteNews from '../components/HomeSiteNews';
+import HomeContactPulses from '../components/HomeContactPulses';
 import HomeTabs from '../components/HomeTabs';
 
 const TABS = [
@@ -11,7 +13,7 @@ const TABS = [
   { id: 'contact', label: 'Contact' },
 ];
 
-const CYCLE_MS = 4000;
+const CYCLE_MS = 3000;
 const WAITLIST_URL = '#';
 
 const CONTACT_THEME = {
@@ -30,13 +32,33 @@ export default function HomePage() {
   const toolbarRef = React.useRef(null);
   const heroRef = React.useRef(null);
   const isScrolling = React.useRef(false);
+  const cycleRef = React.useRef(null);
+
+  const stopCycle = React.useCallback(() => {
+    if (cycleRef.current) {
+      clearInterval(cycleRef.current);
+      cycleRef.current = null;
+    }
+  }, []);
 
   React.useEffect(() => {
-    const id = setInterval(() => {
+    cycleRef.current = setInterval(() => {
       setActiveIdx((prev) => (prev + 1) % FLEET_SITES.length);
     }, CYCLE_MS);
-    return () => clearInterval(id);
+    return () => {
+      if (cycleRef.current) clearInterval(cycleRef.current);
+    };
   }, []);
+
+  const handleSiteHover = React.useCallback((idx) => {
+    stopCycle();
+    setActiveIdx(idx);
+  }, [stopCycle]);
+
+  const handleSiteSelect = React.useCallback((idx) => {
+    stopCycle();
+    setActiveIdx(idx);
+  }, [stopCycle]);
 
   React.useEffect(() => {
     const root = shellRef.current;
@@ -108,31 +130,46 @@ export default function HomePage() {
             '--tb-card': toolbarTheme.bg,
           } : undefined}
         >
-          <div className="home-hero-mark">
-            <button type="button" className="home-logo-btn" aria-label="MeterZero">
-              <HomeLogo />
+          <div className="home-hero-toolbar-start">
+            <div className="home-hero-mark">
+              <button type="button" className="home-logo-btn" aria-label="MeterZero">
+                <HomeLogo />
+              </button>
+            </div>
+            <HomeTabs tabs={TABS} activeTab={activeTab} onTabChange={scrollToSection} />
+          </div>
+          <div className="home-hero-toolbar-end">
+            <button type="button" className="home-signin-btn">
+              Sign in
+              <i className="hn hn-login home-signin-btn-icon" aria-hidden="true" />
             </button>
           </div>
-          <HomeTabs tabs={TABS} activeTab={activeTab} onTabChange={scrollToSection} />
         </div>
 
         <div className="home-panel home-panel--hero" ref={heroRef}>
-
-          <div className="home-hero">
-            <div className="home-hero-headline">
+          <div className="home-hero-body">
+            <div className="home-hero-copy">
               <h1 className="home-tagline">
                 <span className="home-tagline-line">Nuclear Data Center</span>
                 <span className="home-tagline-line">Co-Siting Tool</span>
               </h1>
             </div>
+
+            <div className="home-map-cluster">
+              <div className="home-map-stage">
+                <div className="home-map-frame">
+                  <HomeMapOrb
+                    activeIdx={activeIdx}
+                    onSiteHover={handleSiteHover}
+                    onSiteSelect={handleSiteSelect}
+                  />
+                </div>
+              </div>
+              <HomeSiteNews activeIdx={activeIdx} />
+              <HomeSiteBreakdown activeIdx={activeIdx} />
+            </div>
           </div>
 
-          <div className="home-map-stage">
-            <div className="home-map-frame">
-              <HomeMapOrb activeIdx={activeIdx} />
-            </div>
-            <HomeSiteBreakdown activeIdx={activeIdx} />
-          </div>
           <div className="home-affil">
             <span className="home-affil-label st-title">MADE BY RESEARCHERS FROM</span>
             <div className="home-affil-logos">
@@ -152,11 +189,13 @@ export default function HomePage() {
             className={`home-section home-section--${tab.id}`}
           >
             {tab.id === 'contact' && (
-              <div className="home-section-contact-pulses" aria-hidden="true">
-                <span className="home-section-contact-ring home-section-contact-ring--a" />
-                <span className="home-section-contact-ring home-section-contact-ring--b" />
-                <span className="home-section-contact-ring home-section-contact-ring--c" />
-              </div>
+              <>
+                <div className="home-section-reticule" aria-hidden="true">
+                  <div className="home-section-reticule__grid" />
+                  <div className="home-section-reticule__hatch" />
+                </div>
+                <HomeContactPulses />
+              </>
             )}
             <div className="home-section-inner">
               {tab.id === 'contact' ? (
