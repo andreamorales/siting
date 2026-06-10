@@ -198,7 +198,28 @@ export default function HomePage() {
               </>
             )}
             <div className="home-section-inner">
-              {tab.id === 'contact' ? (
+              {tab.id === 'background' ? (
+                <>
+                  <p className="home-section-eyebrow st-title">Background</p>
+                  <h2 className="home-section-headline">AI needs nuclear energy.</h2>
+                  <p className="home-section-text">
+                    Since 2017, the United States has seen a surge in data center demand due to
+                    increasing interest in cryptocurrency and the use of AI. Data center energy use
+                    is expected to continue increasing, potentially doubling to account for over 9%
+                    of US electricity use by 2030 (between 325 and 580 TWh).
+                  </p>
+                  <p className="home-section-text">
+                    Recent announcements by technology companies such as Amazon, Microsoft, and Google
+                    make clear their interests in nuclear-powered data centers, largely to serve
+                    growing AI data center energy demand.
+                  </p>
+                  <p className="home-section-text">
+                    Our work aims to understand possible data center–nuclear power plant co-location
+                    from multiple socio-technical dimensions, including interactions between data
+                    center, nuclear plant, and electric power infrastructure development.
+                  </p>
+                </>
+              ) : tab.id === 'contact' ? (
                 <div className="home-section-contact">
                   <img className="home-section-contact-logo" src="/logo/meterzero_horizontal.svg" alt="MeterZero" />
                   <form className="home-section-contact-form" onSubmit={(e) => { e.preventDefault(); }}>
