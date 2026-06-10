@@ -88,11 +88,32 @@ export const FLEET_SITES = [
   },
 ];
 
+const FADE_MS = 320;
+
 export default function HomeSiteBreakdown({ activeIdx = 0 }) {
-  const site = FLEET_SITES[activeIdx];
+  const [shownIdx, setShownIdx] = React.useState(activeIdx);
+  const [visible, setVisible] = React.useState(true);
+
+  React.useEffect(() => {
+    if (activeIdx === shownIdx) return undefined;
+
+    setVisible(false);
+    const timer = setTimeout(() => {
+      setShownIdx(activeIdx);
+      requestAnimationFrame(() => setVisible(true));
+    }, FADE_MS);
+
+    return () => clearTimeout(timer);
+  }, [activeIdx, shownIdx]);
+
+  const site = FLEET_SITES[shownIdx];
+  const cardClass = [
+    'home-site-card',
+    visible ? 'home-site-card--visible' : 'home-site-card--hidden',
+  ].join(' ');
 
   return (
-    <div className="home-site-card" key={site.id}>
+    <div className={cardClass}>
       <div className="home-site-card-header">
         <div className="home-site-card-grade">{site.grade}</div>
         <div className="home-site-card-meta">

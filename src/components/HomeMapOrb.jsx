@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import Map, { Marker } from 'react-map-gl/maplibre';
 import { FLEET_SITES } from './HomeSiteBreakdown.jsx';
 
@@ -6,7 +6,6 @@ const MAP_STYLE_URL = 'https://basemaps.cartocdn.com/gl/positron-gl-style/style.
 
 const PAPER = '#FDFDFC';
 const LAND = '#EDECEA';
-const BORDER = '#D4D1CC';
 
 function patchStyle(style) {
   const patched = JSON.parse(JSON.stringify(style));
@@ -54,6 +53,17 @@ function PinMarker() {
   );
 }
 
+function SiteMarker({ active }) {
+  return (
+    <div className={'home-site-marker' + (active ? ' home-site-marker--active' : '')}>
+      <span className="home-site-marker-dot" aria-hidden="true" />
+      <span className="home-site-marker-pin" aria-hidden="true">
+        <PinMarker />
+      </span>
+    </div>
+  );
+}
+
 export default function HomeMapOrb({ activeIdx = 0 }) {
   const [mapStyle, setMapStyle] = useState(null);
 
@@ -94,20 +104,7 @@ export default function HomeMapOrb({ activeIdx = 0 }) {
         >
           {FLEET_SITES.map((site, i) => (
             <Marker key={site.id} longitude={site.lng} latitude={site.lat} anchor="center">
-              {i === activeIdx ? (
-                <PinMarker />
-              ) : (
-                <span
-                  style={{
-                    display: 'block',
-                    width: 6,
-                    height: 6,
-                    transform: 'rotate(45deg)',
-                    background: 'var(--line)',
-                    border: '1.5px solid var(--faint)',
-                  }}
-                />
-              )}
+              <SiteMarker active={i === activeIdx} />
             </Marker>
           ))}
         </Map>

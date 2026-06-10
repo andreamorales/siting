@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" fill="none">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Kode+Mono:wght@500&amp;display=swap');
+      .title { font-family: 'Kode Mono', ui-monospace, monospace; font-weight: 500; fill: #1C1B1B; letter-spacing: -0.02em; }
+    </style>
+    <pattern id="grid" width="42" height="52.5" patternUnits="userSpaceOnUse">
+      <path d="M 42 0 L 0 0 0 52.5" fill="none" stroke="#1C1B1B" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+    <pattern id="hatch" width="9" height="9" patternUnits="userSpaceOnUse" patternTransform="rotate(135)">
+      <line x1="0" y1="0" x2="0" y2="9" stroke="#1C1B1B" stroke-opacity="0.03" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="#FDFDFC"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <rect width="1200" height="630" fill="url(#hatch)"/>
+
+  <g transform="translate(96 118) scale(0.31)">
+    <g fill="#1C1B1B">
+      <path d="M555.3,302.8v37.2l-119.5,123.7h119.5v25.2h-154.9v-25.2l126.6-131.5v-4.2h-126.6v-25.2h154.9Z"/>
+      <path d="M722.9,302.8l29.1,41.7-57.8,59.6h-69.4v39.3l13.7,20.3h74.3l19.6-19.3,15.4,19.3-24.5,25.2h-98.2l-28.4-42.1v-115l28-29.1h98.2ZM624.7,378.9h58.9l35.4-37.2-9.1-13.7h-74l-11.2,11.2v39.6Z"/>
+      <path d="M807.4,302.8l33.3,20,19.3-20h72.2l18.2,26.6-21,14.4-10.5-15.8h-48l-15.4,16.5v119.2h49.4v25.2h-112.9v-25.2h35.4v-115.7l-13.7-20h-21.7v-25.2h15.4Z"/>
+      <path d="M28.1,75.8v16.8l28-16.8h14.7l16.1,24.2,40.3-24.2h13.7l28.4,41.7v144.4h-28.4V121l-13.3-20h-17.9l-10.5,11.6v52.2h-28.4v-43.8l-13.3-20h-18.6l-10.9,11.6v149.3H0V75.8h28Z"/>
+      <path d="M329.6,75.8l29.1,41.7-57.8,59.6h-69.4v39.3l13.7,20.3h74.3l19.6-19.3,15.4,19.3-24.5,25.2h-98.2l-28.4-42.1v-115l28-29.1h98.2ZM231.4,151.9h58.9l35.4-37.2-9.1-13.7h-74l-11.2,11.2v39.6Z"/>
+      <path d="M435.4-.2h28v75.7h56.8v25.6h-56.8v115.3l13.7,20h35.4l21-21,14.4,21-23.8,25.6h-60.6l-28-41.4v-119.5h-27.7v-25.6h27.7V-.2Z"/>
+      <path d="M722.9,75.8l29.1,41.7-57.8,59.6h-69.4v39.3l13.7,20.3h74.3l19.6-19.3,15.4,19.3-24.5,25.2h-98.2l-28.4-42.1v-115l28-29.1h98.2ZM624.7,151.9h58.9l35.4-37.2-9.1-13.7h-74l-11.2,11.2v39.6Z"/>
+      <path d="M807.4,75.8l33.3,20,19.3-20h72.2l18.2,26.6-21,14.4-10.5-15.8h-48l-15.4,16.5v119.2h49.4v25.2h-112.9v-25.2h35.4v-115.7l-13.7-20h-21.7v-25.2h15.4Z"/>
+      <polygon points="1189.6 214.4 1163.8 214.4 1163.8 238.3 1136.1 267.4 1037.2 267.4 1008.8 225.3 1008.8 214.4 983 214.4 983 490.5 1008.8 490.5 1008.8 376.3 1037.2 347.2 1136.1 347.2 1163.8 388.9 1163.8 490.5 1189.6 490.5 1189.6 214.4"/>
+      <polygon points="1135.4 406.1 1135.4 392.7 1121.7 372.4 1047.7 372.4 1036.9 384 1036.9 490.5 1053.9 490.5 1135.4 406.1"/>
+      <polygon points="1135.4 442.2 1088.9 490.5 1135.4 490.5 1135.4 442.2"/>
+      <polygon points="1036.9 219.4 1036.9 221.8 1050.5 242.2 1124.9 242.2 1135.4 230.6 1135.4 214.4 1041.7 214.4 1036.9 219.4"/>
+      <polyline points="983.1 130.9 1189.7 130.9 1189.7 205.5 983.1 205.5"/>
+      <polyline points="983.1 75.3 1189.7 75.3 1189.7 123.9 983.1 123.9"/>
+      <polyline points="983.1 37.5 1189.7 37.5 1189.7 69.3 983.1 69.3"/>
+      <polyline points="983.1 9.6 1189.7 9.6 1189.7 32 983.1 32"/>
+      <polyline points="983.1 0 1189.7 0 1189.7 4.7 983.1 4.7"/>
+    </g>
+  </g>
+
+  <text class="title" x="96" y="390" font-size="72">Nuclear Datacenter</text>
+  <text class="title" x="96" y="468" font-size="72">Co-Siting Tool</text>
+</svg>
