@@ -1,5 +1,4 @@
 import React from 'react';
-import HomeTopoPortrait from './HomeTopoPortrait';
 
 const TEAM_MEMBERS = [
   {
@@ -53,53 +52,164 @@ function bioBody(name, bio) {
   return bio.startsWith(name) ? bio.slice(name.length).trimStart() : bio;
 }
 
+const BIO_LINE_COUNT = 2;
+
+function countLines(el) {
+  void el.offsetHeight;
+  const lineHeight = parseFloat(getComputedStyle(el).lineHeight);
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const rects = Array.from(range.getClientRects()).filter(
+    (rect) => rect.width > 0 && rect.height > 0,
+  );
+
+  if (!rects.length) return 0;
+
+  const baseTop = rects[0].top;
+  const lines = new Set(
+    rects.map((rect) => Math.round((rect.top - baseTop) / lineHeight)),
+  );
+
+  return lines.size;
+}
+
+function getMeasurer(width) {
+  let host = document.getElementById('home-team-bio-measurer');
+  if (!host) {
+    host = document.createElement('div');
+    host.id = 'home-team-bio-measurer';
+    host.className = 'home-page';
+    host.style.cssText = 'position:fixed;visibility:hidden;pointer-events:none;top:-9999px;left:-9999px;';
+    document.body.appendChild(host);
+  }
+
+  let el = host.firstElementChild;
+  if (!el) {
+    el = document.createElement('p');
+    el.className = 'home-team-bio';
+    host.appendChild(el);
+  }
+
+  el.style.width = `${width}px`;
+  return el;
+}
+
+function setMeasurerContent(el, name, bodyText, withEllipsis, withButton) {
+  el.replaceChildren();
+
+  const nameEl = document.createElement('strong');
+  nameEl.className = 'home-team-name';
+  nameEl.textContent = name;
+  el.appendChild(nameEl);
+  el.appendChild(document.createTextNode(` ${bodyText}`));
+
+  if (withEllipsis) {
+    el.appendChild(document.createTextNode('…'));
+  }
+
+  if (withButton) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'home-team-bio-toggle';
+    btn.setAttribute('aria-hidden', 'true');
+    btn.tabIndex = -1;
+    const icon = document.createElement('i');
+    icon.className = 'hn hn-plus';
+    icon.setAttribute('aria-hidden', 'true');
+    btn.appendChild(icon);
+    el.appendChild(btn);
+  }
+}
+
+function measureBioClamp(containerWidth, name, body) {
+  if (!body || !containerWidth) return { text: body, truncated: false };
+
+  const measurer = getMeasurer(containerWidth);
+
+  setMeasurerContent(measurer, name, body, false, false);
+  if (countLines(measurer) <= BIO_LINE_COUNT) {
+    return { text: body, truncated: false };
+  }
+
+  let lo = 0;
+  let hi = body.length;
+  let best = 0;
+
+  while (lo <= hi) {
+    const mid = Math.floor((lo + hi) / 2);
+    setMeasurerContent(measurer, name, body.slice(0, mid).trimEnd(), true, true);
+
+    if (countLines(measurer) <= BIO_LINE_COUNT) {
+      best = mid;
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+
+  return {
+    text: body.slice(0, best).trimEnd(),
+    truncated: best < body.length,
+  };
+}
+
 function HomeTeamMember({ member }) {
-  const [expanded, setExpanded] = React.useState(false);
-  const [clampable, setClampable] = React.useState(false);
-  const bioRef = React.useRef(null);
   const body = bioBody(member.name, member.bio);
+  const [expanded, setExpanded] = React.useState(false);
+  const [displayBody, setDisplayBody] = React.useState(body);
+  const [truncated, setTruncated] = React.useState(false);
+  const copyRef = React.useRef(null);
 
   React.useLayoutEffect(() => {
-    const el = bioRef.current;
-    if (!el || expanded) return undefined;
+    if (expanded) return undefined;
 
     const measure = () => {
-      setClampable(el.scrollHeight > el.clientHeight + 1);
+      const width = copyRef.current?.clientWidth;
+      if (!width) return;
+
+      const result = measureBioClamp(width, member.name, body);
+      setDisplayBody(result.text);
+      setTruncated(result.truncated);
     };
 
     measure();
-    const observer = new ResizeObserver(measure);
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, [member.bio, expanded]);
+    const target = copyRef.current;
+    if (!target) return undefined;
 
-  const showToggle = clampable || expanded;
+    const observer = new ResizeObserver(measure);
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [body, expanded, member.name]);
+
+  const showToggle = truncated || expanded;
 
   return (
     <article className="home-team-member">
-      <HomeTopoPortrait src={member.photo} alt={`Portrait of ${member.name}`} />
-      <div className="home-team-copy">
-        <p
-          ref={bioRef}
-          className={[
-            'home-team-bio',
-            !expanded ? 'home-team-bio--clamped' : 'home-team-bio--expanded',
-          ].join(' ')}
-        >
+      <div className="home-team-photo">
+        <img src={member.photo} alt={`Portrait of ${member.name}`} />
+      </div>
+      <div className="home-team-copy home-team-bio-card" ref={copyRef}>
+        <p className="home-team-bio">
           <strong className="home-team-name">{member.name}</strong>
-          {body ? ` ${body}` : null}
+          {body ? (
+            <>
+              {' '}
+              {expanded ? body : displayBody}
+              {!expanded && truncated ? '…' : null}
+              {showToggle ? (
+                <button
+                  type="button"
+                  className="home-team-bio-toggle"
+                  aria-expanded={expanded}
+                  aria-label={expanded ? `Show less for ${member.name}` : `Show more for ${member.name}`}
+                  onClick={() => setExpanded((open) => !open)}
+                >
+                  <i className={`hn ${expanded ? 'hn-minus' : 'hn-plus'}`} aria-hidden="true" />
+                </button>
+              ) : null}
+            </>
+          ) : null}
         </p>
-        {showToggle ? (
-          <button
-            type="button"
-            className="home-team-bio-toggle"
-            aria-expanded={expanded}
-            aria-label={expanded ? `Show less for ${member.name}` : `Show more for ${member.name}`}
-            onClick={() => setExpanded((open) => !open)}
-          >
-            <i className={`hn ${expanded ? 'hn-minus' : 'hn-plus'}`} aria-hidden="true" />
-          </button>
-        ) : null}
       </div>
     </article>
   );

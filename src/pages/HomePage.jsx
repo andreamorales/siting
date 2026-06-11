@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeLogo from '../components/HomeLogo';
 import HomeMapOrb from '../components/HomeMapOrb';
+import HomeMapCornerMark from '../components/HomeMapCornerMark';
 import HomeSiteBreakdown, { FLEET_SITES } from '../components/HomeSiteBreakdown';
 import HomeSiteNews from '../components/HomeSiteNews';
 import HomeBackgroundHeadline from '../components/HomeBackgroundHeadline';
@@ -166,6 +167,7 @@ export default function HomePage() {
                     onSiteHover={handleSiteHover}
                     onSiteSelect={handleSiteSelect}
                   />
+                  <HomeMapCornerMark />
                 </div>
               </div>
               <HomeSiteNews activeIdx={activeIdx} />
