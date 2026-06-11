@@ -7,6 +7,7 @@ import HomeSiteNews from '../components/HomeSiteNews';
 import HomeBackgroundHeadline from '../components/HomeBackgroundHeadline';
 import HomeCitationRef from '../components/HomeCitationRef';
 import HomeTeamSection from '../components/HomeTeamSection';
+import HomeRoadmapSection from '../components/HomeRoadmapSection';
 import HomeContactPulses from '../components/HomeContactPulses';
 import HomeTabs from '../components/HomeTabs';
 
@@ -268,6 +269,8 @@ export default function HomePage() {
                 </>
               ) : tab.id === 'team' ? (
                 <HomeTeamSection />
+              ) : tab.id === 'roadmap' ? (
+                <HomeRoadmapSection />
               ) : tab.id === 'contact' ? (
                 <div className="home-section-contact">
                   <img className="home-section-contact-logo" src="/logo/meterzero_horizontal.svg" alt="MeterZero" />

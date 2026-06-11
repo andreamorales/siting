@@ -217,7 +217,7 @@ function HomeTeamMember({ member }) {
 
 export default function HomeTeamSection() {
   return (
-    <>
+    <div className="home-team">
       <p className="home-section-eyebrow st-title">Team</p>
       <h2 className="home-section-headline home-section-headline--static">
         <span className="home-section-headline-line">Researchers from top scientific institutions</span>
@@ -227,6 +227,6 @@ export default function HomeTeamSection() {
           <HomeTeamMember key={member.name} member={member} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
