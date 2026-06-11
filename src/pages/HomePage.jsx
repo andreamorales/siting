@@ -87,6 +87,29 @@ export default function HomePage() {
 
   React.useEffect(() => {
     const root = shellRef.current;
+    if (!root) return undefined;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          entry.target.classList.toggle(
+            'home-section--in-view',
+            entry.isIntersecting && entry.intersectionRatio >= 0.12,
+          );
+        }
+      },
+      { root, threshold: [0, 0.12, 0.25, 0.4] },
+    );
+
+    for (const el of Object.values(sectionRefs.current)) {
+      if (el) observer.observe(el);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    const root = shellRef.current;
     const toolbar = toolbarRef.current;
     if (!root || !toolbar) return;
     const update = () => {

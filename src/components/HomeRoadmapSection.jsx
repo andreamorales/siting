@@ -326,6 +326,7 @@ export default function HomeRoadmapSection() {
                   + (PHASE_BOUNDARIES.has(idx) ? ' home-roadmap-milestone--phase-start' : '')
                 }
                 data-phase={item.phaseId}
+                style={{ '--milestone-i': idx }}
               >
                 <span className="home-roadmap-item-when">{item.when}</span>
                 <div className="home-roadmap-milestone-track">

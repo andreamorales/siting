@@ -184,7 +184,7 @@ function HomeTeamMember({ member }) {
   const showToggle = truncated || expanded;
 
   return (
-    <article className="home-team-member">
+    <article className="home-team-member" style={{ '--member-i': member.index }}>
       <div className="home-team-photo">
         <img src={member.photo} alt={`Portrait of ${member.name}`} />
       </div>
@@ -223,8 +223,8 @@ export default function HomeTeamSection() {
         <span className="home-section-headline-line">Researchers from top scientific institutions</span>
       </h2>
       <div className="home-team-grid">
-        {TEAM_MEMBERS.map((member) => (
-          <HomeTeamMember key={member.name} member={member} />
+        {TEAM_MEMBERS.map((member, index) => (
+          <HomeTeamMember key={member.name} member={{ ...member, index }} />
         ))}
       </div>
     </div>
