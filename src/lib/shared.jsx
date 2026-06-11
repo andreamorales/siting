@@ -533,7 +533,7 @@ function CapacityBars({ accent = 'var(--ink)', showAxis = true, rounded = 0 }) {
 }
 
 // ─────────────────────────── lists ───────────────────────────
-function RiskRow({ r, accent, last }) {
+function RiskRow({ r, accent: _accent, last }) {
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '9px 0', borderBottom: last ? 'none' : `1px solid ${'var(--line2)'}` }}>
       <div style={{ display: 'flex', gap: 2, width: 26, flexShrink: 0 }}>
@@ -650,6 +650,7 @@ function factorByKey(key) {
 }
 
 // Deep-dive card for each composite subscore factor.
+// eslint-disable-next-line no-unused-vars
 function FactorCard({ factor, idx, details, style = {}, cardStyle = {}, className = '', children, showNote = true, Head = Eyebrow, activeKey = null, onActiveKeyChange }) {
   const rows = details?.rows || [];
   const dimmed = activeKey != null && activeKey !== factor.k;
@@ -844,7 +845,7 @@ function MiniMap({
 }
 
 // ─────────────────────────── photo-led news ───────────────────────────
-function NewsFeature({ n, seed = 0, accent = 'var(--ink)', rounded = 0, height = 132 }) {
+function NewsFeature({ n, seed = 0, accent: _accent = 'var(--ink)', rounded = 0, height = 132 }) {
   return (
     <div style={{ borderRadius: rounded, overflow: 'hidden', border: `1px solid ${'var(--line)'}` }}>
       <FakePhoto seed={seed} height={height} label={n.src} sub="AERIAL · 32.0°N" />

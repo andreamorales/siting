@@ -308,7 +308,7 @@ function DCViewport({ children, minScale = 0.1, maxScale = 8, style = {} }) {
     // window doesn't drop the last pan/zoom.
     window.addEventListener('pagehide', flush);
     return () => { window.removeEventListener('pagehide', flush); flush(); };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   React.useEffect(() => {
     const vp = vpRef.current;
@@ -514,11 +514,12 @@ function DCSection({ id, title, subtitle, children, gap = 48 }) {
   const srcKey = allIds.join('\x1f');
   const hidden = sec.srcKey === srcKey ? (sec.hidden || []) : [];
   const srcOrder = allIds.filter((k) => !hidden.includes(k));
+  const srcOrderKey = srcOrder.join('|');
 
   const order = React.useMemo(() => {
     const kept = (sec.order || []).filter((k) => srcOrder.includes(k));
     return [...kept, ...srcOrder.filter((k) => !kept.includes(k))];
-  }, [sec.order, srcOrder.join('|')]);
+  }, [sec.order, srcOrderKey]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const byId = Object.fromEntries(artboards.map((a) => [a.props.id ?? a.props.label, a]));
 
@@ -688,10 +689,12 @@ function DCArtboardFrame({ sectionId, artboard, label, order, onRename, onReorde
   const [menuOpen, setMenuOpen] = React.useState(false);
   const [confirming, setConfirming] = React.useState(false);
 
-  // ⋯ menu: close on any outside pointerdown. Two-click delete lives inside
-  // the menu — first click arms the row, second commits; closing disarms.
+  if (!menuOpen && confirming) {
+    setConfirming(false);
+  }
+
   React.useEffect(() => {
-    if (!menuOpen) { setConfirming(false); return; }
+    if (!menuOpen) return undefined;
     const off = (e) => { if (!menuRef.current || !menuRef.current.contains(e.target)) setMenuOpen(false); };
     document.addEventListener('pointerdown', off, true);
     return () => document.removeEventListener('pointerdown', off, true);
@@ -823,6 +826,21 @@ function DCEditable({ value, onChange, style, tag = 'span', onClick }) {
 }
 
 // ─────────────────────────────────────────────────────────────
+function DCFocusArrow({ dir, onClick }) {
+  return (
+    <button onClick={(e) => { e.stopPropagation(); onClick(); }}
+      style={{ position: 'absolute', top: '50%', [dir]: 28, transform: 'translateY(-50%)',
+        border: 'none', background: 'rgba(255,255,255,.08)', color: 'rgba(255,255,255,.9)',
+        width: 44, height: 44, borderRadius: 22, fontSize: 18, cursor: 'pointer',
+        display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .15s' }}
+      onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,.18)'; }}
+      onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(255,255,255,.08)'; }}>
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+        <path d={dir === 'left' ? 'M11 3L5 9l6 6' : 'M7 3l6 6-6 6'} /></svg>
+    </button>
+  );
+}
+
 // Focus mode — overlay one artboard; ←/→ within section, ↑/↓ across
 // sections, Esc or backdrop click to exit.
 // ─────────────────────────────────────────────────────────────
@@ -865,18 +883,6 @@ function DCFocusOverlay({ entry, sectionMeta, sectionOrder }) {
   const scale = Math.max(0.1, Math.min((vp.w - 200) / width, (vp.h - 260) / height, 2));
 
   const [ddOpen, setDd] = React.useState(false);
-  const Arrow = ({ dir, onClick }) => (
-    <button onClick={(e) => { e.stopPropagation(); onClick(); }}
-      style={{ position: 'absolute', top: '50%', [dir]: 28, transform: 'translateY(-50%)',
-        border: 'none', background: 'rgba(255,255,255,.08)', color: 'rgba(255,255,255,.9)',
-        width: 44, height: 44, borderRadius: 22, fontSize: 18, cursor: 'pointer',
-        display: 'flex', alignItems: 'center', justifyContent: 'center', transition: 'background .15s' }}
-      onMouseEnter={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,.18)')}
-      onMouseLeave={(e) => (e.currentTarget.style.background = 'rgba(255,255,255,.08)')}>
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-        <path d={dir === 'left' ? 'M11 3L5 9l6 6' : 'M7 3l6 6-6 6'} /></svg>
-    </button>
-  );
 
   // Portal to body so position:fixed is the real viewport regardless of any
   // transform on DesignCanvas's ancestors (including the canvas zoom itself).
@@ -938,8 +944,8 @@ function DCFocusOverlay({ entry, sectionMeta, sectionOrder }) {
         </div>
       </div>
 
-      <Arrow dir="left" onClick={() => go(-1)} />
-      <Arrow dir="right" onClick={() => go(1)} />
+      <DCFocusArrow dir="left" onClick={() => go(-1)} />
+      <DCFocusArrow dir="right" onClick={() => go(1)} />
 
       {/* dots */}
       <div onClick={(e) => e.stopPropagation()}

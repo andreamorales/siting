@@ -92,24 +92,22 @@ const FADE_MS = 520;
 
 export default function HomeSiteBreakdown({ activeIdx = 0 }) {
   const [shownIdx, setShownIdx] = React.useState(activeIdx);
-  const [visible, setVisible] = React.useState(true);
+  const changing = activeIdx !== shownIdx;
 
   React.useEffect(() => {
-    if (activeIdx === shownIdx) return undefined;
+    if (!changing) return undefined;
 
-    setVisible(false);
     const timer = setTimeout(() => {
       setShownIdx(activeIdx);
-      requestAnimationFrame(() => setVisible(true));
     }, FADE_MS);
 
     return () => clearTimeout(timer);
-  }, [activeIdx, shownIdx]);
+  }, [activeIdx, changing]);
 
   const site = FLEET_SITES[shownIdx];
   const cardClass = [
     'home-site-card',
-    visible ? 'home-site-card--visible' : 'home-site-card--hidden',
+    changing ? 'home-site-card--hidden' : 'home-site-card--visible',
   ].join(' ');
 
   return (

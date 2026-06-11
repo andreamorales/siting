@@ -1400,20 +1400,38 @@ body,
   animation: home-reveal-rise 0.72s var(--home-ease-out) 0.46s forwards;
 }
 
-.home-section--roadmap.home-section--in-view .home-roadmap-milestone:not(.home-roadmap-milestone--active) {
+/* Entrance animations — only before --revealed */
+.home-section--roadmap.home-section--in-view .home-roadmap:not(.home-roadmap--revealed) .home-roadmap-milestone:not(.home-roadmap-milestone--active) {
   animation: home-roadmap-milestone-in 0.65s var(--home-ease-out) forwards;
   animation-delay: calc(0.52s + (var(--milestone-i, 0) * 0.045s));
 }
 
-.home-section--roadmap.home-section--in-view .home-roadmap-milestone--active {
+.home-section--roadmap.home-section--in-view .home-roadmap:not(.home-roadmap--revealed) .home-roadmap-milestone--active {
   animation: home-roadmap-milestone-in-active 0.65s var(--home-ease-out) forwards;
   animation-delay: calc(0.52s + (var(--milestone-i, 0) * 0.045s));
 }
 
-.home-section--roadmap.home-section--in-view .home-roadmap-connector {
+.home-section--roadmap.home-section--in-view .home-roadmap:not(.home-roadmap--revealed) .home-roadmap-connector {
   animation: home-roadmap-connector-draw 0.55s var(--home-ease-out) forwards;
   animation-delay: calc(0.58s + (var(--milestone-i, 0) * 0.045s));
   transform-origin: left center;
+}
+
+/* After entrance: clear animations, let transitions take over */
+.home-roadmap--revealed .home-roadmap-milestone {
+  animation: none !important;
+  opacity: 0.42;
+  transform: translateY(3px);
+}
+
+.home-roadmap--revealed .home-roadmap-milestone--active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.home-roadmap--revealed .home-roadmap-connector {
+  animation: none !important;
+  transform: scaleX(1);
 }
 
 /* Contact in-view */

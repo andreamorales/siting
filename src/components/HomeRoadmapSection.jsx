@@ -91,6 +91,7 @@ function scrollLeftForPhaseCenter(phaseIdx, viewport, milestoneEls) {
 export default function HomeRoadmapSection() {
   const [activeIdx, setActiveIdx] = React.useState(0);
   const [inView, setInView] = React.useState(false);
+  const [revealed, setRevealed] = React.useState(false);
   const [indicator, setIndicator] = React.useState({ left: 0, width: 0, ready: false });
   const [dragging, setDragging] = React.useState(false);
 
@@ -183,6 +184,12 @@ export default function HomeRoadmapSection() {
   }, []);
 
   React.useEffect(() => {
+    if (!inView || revealed) return undefined;
+    const timer = setTimeout(() => setRevealed(true), 1200);
+    return () => clearTimeout(timer);
+  }, [inView, revealed]);
+
+  React.useEffect(() => {
     if (!inView) return undefined;
 
     const interval = setInterval(() => {
@@ -249,7 +256,7 @@ export default function HomeRoadmapSection() {
   };
 
   return (
-    <div className="home-roadmap">
+    <div className={'home-roadmap' + (revealed ? ' home-roadmap--revealed' : '')}>
       <div className="home-roadmap-intro">
         <p className="home-section-eyebrow st-title">Roadmap</p>
         <h2 className="home-section-headline">

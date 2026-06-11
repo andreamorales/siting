@@ -116,26 +116,24 @@ const FADE_MS = 520;
 
 export default function HomeSiteNews({ activeIdx = 0 }) {
   const [shownIdx, setShownIdx] = React.useState(activeIdx);
-  const [visible, setVisible] = React.useState(true);
+  const changing = activeIdx !== shownIdx;
 
   React.useEffect(() => {
-    if (activeIdx === shownIdx) return undefined;
+    if (!changing) return undefined;
 
-    setVisible(false);
     const timer = setTimeout(() => {
       setShownIdx(activeIdx);
-      requestAnimationFrame(() => setVisible(true));
     }, FADE_MS);
 
     return () => clearTimeout(timer);
-  }, [activeIdx, shownIdx]);
+  }, [activeIdx, changing]);
 
   const site = FLEET_SITES[shownIdx];
   const articles = SITE_NEWS[site.id] ?? [];
 
   const cardClass = [
     'home-map-news',
-    visible ? 'home-map-news--visible' : 'home-map-news--hidden',
+    changing ? 'home-map-news--hidden' : 'home-map-news--visible',
   ].join(' ');
 
   return (
