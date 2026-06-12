@@ -9,6 +9,8 @@ import HomeCitationRef from '../components/HomeCitationRef';
 import HomeTeamSection from '../components/HomeTeamSection';
 import HomeRoadmapSection from '../components/HomeRoadmapSection';
 import HomeContactPulses from '../components/HomeContactPulses';
+import HomeContactForm from '../components/HomeContactForm';
+import HomeLabel from '../components/HomeLabel';
 import HomeTabs from '../components/HomeTabs';
 
 const TABS = [
@@ -19,7 +21,6 @@ const TABS = [
 ];
 
 const CYCLE_MS = 3000;
-const WAITLIST_URL = '#';
 
 const CONTACT_THEME = {
   bg: '#1C1B1B',
@@ -139,9 +140,12 @@ export default function HomePage() {
     <div className="home-page st-board">
       <div className="home-shell" ref={shellRef}>
         <a
-          href={WAITLIST_URL}
+          href="#contact"
           className="home-beta-banner"
-          onClick={WAITLIST_URL === '#' ? (e) => e.preventDefault() : undefined}
+          onClick={(event) => {
+            event.preventDefault();
+            scrollToSection('contact');
+          }}
         >
           <span className="home-beta-banner-text">
             MeterZero has officially started development. Reach out to get on the waitlist.
@@ -239,7 +243,7 @@ export default function HomePage() {
             <div className="home-section-inner">
               {tab.id === 'background' ? (
                 <>
-                  <p className="home-section-eyebrow st-title">Background</p>
+                  <HomeLabel>Background</HomeLabel>
                   <HomeBackgroundHeadline />
                   <p className="home-section-text">
                     Since 2017, the United States has seen a surge in data center demand due to
@@ -297,13 +301,7 @@ export default function HomePage() {
               ) : tab.id === 'contact' ? (
                 <div className="home-section-contact">
                   <img className="home-section-contact-logo" src="/logo/meterzero_horizontal.svg" alt="MeterZero" />
-                  <form className="home-section-contact-form" onSubmit={(e) => { e.preventDefault(); }}>
-                    <label className="home-section-contact-label" htmlFor="contact-email">Email</label>
-                    <input id="contact-email" className="home-section-contact-input" type="email" name="email" autoComplete="email" placeholder="you@company.com" required />
-                    <button type="submit" className="home-section-contact-submit">
-                      Join the waitlist <i className="hn hn-arrow-right home-section-contact-icon" aria-hidden="true" />
-                    </button>
-                  </form>
+                  <HomeContactForm />
                 </div>
               ) : (
                 <h2 className="home-section-title st-title">{tab.label}</h2>

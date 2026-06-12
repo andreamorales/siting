@@ -1,4 +1,5 @@
 import React from 'react';
+import HomeLabel from './HomeLabel';
 
 const TEAM_MEMBERS = [
   {
@@ -218,7 +219,7 @@ function HomeTeamMember({ member }) {
 export default function HomeTeamSection() {
   return (
     <div className="home-team">
-      <p className="home-section-eyebrow st-title">Team</p>
+      <HomeLabel>Team</HomeLabel>
       <h2 className="home-section-headline home-section-headline--static">
         <span className="home-section-headline-line">Researchers from top scientific institutions</span>
       </h2>

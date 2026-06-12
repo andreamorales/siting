@@ -1264,8 +1264,8 @@ body,
   }
 
   to {
-    opacity: 0.42;
-    transform: translateY(0);
+    opacity: 1;
+    transform: translateY(3px);
   }
 }
 
@@ -1298,14 +1298,14 @@ body,
 
 /* ── Scroll-reveal base: hidden by default, revealed by .home-section--in-view ── */
 
-.home-section--background .home-section-eyebrow,
+.home-section--background .home-label,
 .home-section--background .home-section-headline-line,
 .home-section--background .home-section-text,
 .home-section--background .home-section-float-card img,
-.home-section--team .home-section-eyebrow,
+.home-section--team .home-label,
 .home-section--team .home-section-headline-line,
 .home-section--team .home-team-member,
-.home-section--roadmap .home-roadmap-intro .home-section-eyebrow,
+.home-section--roadmap .home-roadmap-intro .home-label,
 .home-section--roadmap .home-roadmap-intro .home-section-headline-line,
 .home-section--roadmap .home-roadmap-intro .home-section-text,
 .home-section--roadmap .home-roadmap-tabs,
@@ -1337,7 +1337,7 @@ body,
   animation-delay: 0.12s;
 }
 
-.home-section--background.home-section--in-view .home-section-eyebrow {
+.home-section--background.home-section--in-view .home-label {
   animation: home-reveal-rise 0.72s var(--home-ease-out) 0.08s forwards;
 }
 
@@ -1362,7 +1362,7 @@ body,
 }
 
 /* Team in-view */
-.home-section--team.home-section--in-view .home-section-eyebrow {
+.home-section--team.home-section--in-view .home-label {
   animation: home-reveal-rise 0.72s var(--home-ease-out) 0.06s forwards;
 }
 
@@ -1376,7 +1376,7 @@ body,
 }
 
 /* Roadmap in-view */
-.home-section--roadmap.home-section--in-view .home-roadmap-intro .home-section-eyebrow {
+.home-section--roadmap.home-section--in-view .home-roadmap-intro .home-label {
   animation: home-reveal-rise 0.72s var(--home-ease-out) 0.06s forwards;
 }
 
@@ -1420,12 +1420,11 @@ body,
 /* After entrance: clear animations, let transitions take over */
 .home-roadmap--revealed .home-roadmap-milestone {
   animation: none !important;
-  opacity: 0.42;
+  opacity: 1;
   transform: translateY(3px);
 }
 
 .home-roadmap--revealed .home-roadmap-milestone--active {
-  opacity: 1;
   transform: translateY(0);
 }
 
@@ -1679,13 +1678,13 @@ body,
   border: none;
   border-radius: 0;
   background: transparent;
-  font-family: var(--font-content);
-  font-size: var(--t-sm);
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
   font-weight: 500;
   line-height: 1.2;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--mut);
+  color: var(--ink2);
   cursor: pointer;
   transition: color 0.35s var(--home-ease-out);
 }
@@ -1754,16 +1753,23 @@ body,
   gap: var(--s-sm);
   flex: 0 0 auto;
   width: 11.5em;
-  opacity: 0.42;
+  opacity: 1;
   transform: translateY(3px);
   transition:
-    opacity 0.45s var(--home-ease-in-out),
     transform 0.45s var(--home-ease-out);
 }
 
 .home-roadmap-milestone--active {
-  opacity: 1;
   transform: translateY(0);
+}
+
+.home-roadmap-milestone:not(.home-roadmap-milestone--active) .home-roadmap-marker {
+  border-color: color-mix(in srgb, var(--line) 85%, transparent);
+  background: transparent;
+}
+
+.home-roadmap-milestone:not(.home-roadmap-milestone--active) .home-roadmap-connector {
+  opacity: 0.45;
 }
 
 .home-roadmap-milestone--phase-start {
@@ -1826,31 +1832,8 @@ body,
   color: color-mix(in srgb, var(--ink) 62%, var(--mut));
 }
 
-.home-roadmap-item-when {
-  display: inline-block;
-  padding: 0.2em 0.55em;
-  border: 1px solid var(--line);
-  border-radius: 0.35em;
-  background: color-mix(in srgb, var(--paper) 90%, var(--line));
-  font-family: var(--font-content);
-  font-size: var(--t-xxs);
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: 0.02em;
-  color: var(--ink2);
-  white-space: nowrap;
-  transition:
-    border-color 0.4s var(--home-ease-out),
-    color 0.4s var(--home-ease-out),
-    background 0.4s var(--home-ease-out),
-    transform 0.4s var(--home-ease-out);
-}
-
-.home-roadmap-milestone--active .home-roadmap-item-when {
-  border-color: color-mix(in srgb, var(--ink) 35%, var(--line));
+.home-roadmap-milestone--active .home-label--timeline {
   color: var(--ink);
-  background: var(--paper);
-  transform: translateY(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1861,7 +1844,7 @@ body,
 
   .home-roadmap-marker,
   .home-roadmap-milestone,
-  .home-roadmap-item-when,
+  .home-label--timeline,
   .home-roadmap-item-title,
   .home-roadmap-tab,
   .home-roadmap-connector {
@@ -1872,21 +1855,21 @@ body,
   }
 
   .home-roadmap-milestone:not(.home-roadmap-milestone--active) {
-    opacity: 0.42 !important;
+    opacity: 1 !important;
   }
 
   .home-roadmap-milestone--active {
     opacity: 1 !important;
   }
 
-  .home-section--background .home-section-eyebrow,
+  .home-section--background .home-label,
   .home-section--background .home-section-headline-line,
   .home-section--background .home-section-text,
   .home-section--background .home-section-float-card img,
-  .home-section--team .home-section-eyebrow,
+  .home-section--team .home-label,
   .home-section--team .home-section-headline-line,
   .home-section--team .home-team-member,
-  .home-section--roadmap .home-roadmap-intro .home-section-eyebrow,
+  .home-section--roadmap .home-roadmap-intro .home-label,
   .home-section--roadmap .home-roadmap-intro .home-section-headline-line,
   .home-section--roadmap .home-roadmap-intro .home-section-text,
   .home-section--roadmap .home-roadmap-tabs,
@@ -2346,6 +2329,29 @@ body,
   color: var(--mut);
 }
 
+.home-label {
+  display: inline-block;
+  padding: 0.25em 0.6em;
+  border: 1px solid var(--home-badge-border);
+  border-radius: 0.35em;
+  background: transparent;
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--ink2);
+  margin: 0;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.home-label--timeline {
+  text-transform: none;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  transition: color 0.4s var(--home-ease-out);
+}
+
 .home-section-headline-word--visible {
   opacity: 1;
 }
@@ -2493,6 +2499,30 @@ body,
   gap: var(--s-sm);
   width: 100%;
   max-width: 40em;
+}
+
+.home-section-contact-status {
+  flex: 1 1 100%;
+  margin: 0;
+  min-height: 1.4em;
+  font-family: var(--font-content);
+  font-size: var(--t-sm);
+  line-height: 1.4;
+  text-align: center;
+  color: color-mix(in srgb, var(--solidfg) 72%, transparent);
+}
+
+.home-section-contact-status--success {
+  color: color-mix(in srgb, var(--solidfg) 92%, transparent);
+}
+
+.home-section-contact-status--error {
+  color: color-mix(in srgb, #ffb4a8 88%, var(--solidfg));
+}
+
+.home-section-contact-submit:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 
 .home-section-contact-label {

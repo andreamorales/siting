@@ -43,6 +43,12 @@
 
   /* surfaces */
   --paper: #FDFDFC;
+  --card: #FFFFFF;
+  --ink2: #33373D;
+  --mut: #767C84;
+  --line: #E6E8EA;
+  --line2: #F0F1F2;
+  --home-badge-border: color-mix(in srgb, var(--ink2) 26%, var(--line));
 
   /* neutrals */
   --ink: #1C1B1B;

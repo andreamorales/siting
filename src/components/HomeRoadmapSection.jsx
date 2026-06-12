@@ -1,11 +1,12 @@
 import React from 'react';
+import HomeLabel from './HomeLabel';
 
 const ROADMAP_PHASES = [
   {
     id: 'past',
     label: 'Past',
     items: [
-      { title: 'Award from Sloan Foundation', when: 'Dec 2025' },
+      { title: 'Award from Sloan Foundation', when: "Dec '25" },
       { title: 'Project kickoff', when: "Jan '26" },
       { title: 'Input data model compilation', when: "Feb–Apr '26" },
       { title: 'v0', when: "May '26" },
@@ -23,7 +24,7 @@ const ROADMAP_PHASES = [
     id: 'future',
     label: 'Future',
     items: [
-      { title: 'v2 dev with advisory board and design partners', when: "est. mid Aug–mid Oct '26" },
+      { title: 'v2 dev with advisory board and design partners', when: "est. mid Oct '26" },
       { title: 'v3 dev', when: "est. Dec '26" },
       { title: 'v3 open as early partner beta', when: 'est. Feb 2027' },
       { title: 'open beta', when: 'est. Mar 2027' },
@@ -258,7 +259,7 @@ export default function HomeRoadmapSection() {
   return (
     <div className={'home-roadmap' + (revealed ? ' home-roadmap--revealed' : '')}>
       <div className="home-roadmap-intro">
-        <p className="home-section-eyebrow st-title">Roadmap</p>
+        <HomeLabel>Roadmap</HomeLabel>
         <h2 className="home-section-headline">
           <span className="home-section-headline-line">Deploying in cooperation</span>
           <span className="home-section-headline-line">with industry experts</span>
@@ -335,7 +336,7 @@ export default function HomeRoadmapSection() {
                 data-phase={item.phaseId}
                 style={{ '--milestone-i': idx }}
               >
-                <span className="home-roadmap-item-when">{item.when}</span>
+                <HomeLabel as="span" className="home-label--timeline">{item.when}</HomeLabel>
                 <div className="home-roadmap-milestone-track">
                   <span className="home-roadmap-marker" aria-hidden="true" />
                   {idx < ALL_MILESTONES.length - 1 ? (
