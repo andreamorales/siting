@@ -6,6 +6,12 @@ const part = (i, children) => (
   </g>
 );
 
+const stackPart = (i, children) => (
+  <g className="home-logo-part home-logo-part--stack" style={{ '--logo-i': i }}>
+    {children}
+  </g>
+);
+
 export default function HomeLogo() {
   return (
     <svg
@@ -46,7 +52,7 @@ export default function HomeLogo() {
         7,
         <path d="M1468.3,318.3l35,21,20.3-21h75.9l19.2,28-22.1,15.1-11-16.6h-50.5l-16.2,17.3v125.2h51.9v26.5h-118.6v-26.5h37.2v-121.6l-14.4-21h-22.8v-26.5h16.2Z" />,
       )}
-      {part(
+      {stackPart(
         8,
         <>
           <polygon points="1869.3 225.3 1842.1 225.3 1842.1 250.4 1813 281 1709.2 281 1679.3 236.8 1679.3 225.3 1652.2 225.3 1652.2 515.4 1679.3 515.4 1679.3 395.4 1709.2 364.8 1813 364.8 1842.1 408.6 1842.1 515.4 1869.3 515.4 1869.3 225.3" />
@@ -55,23 +61,23 @@ export default function HomeLogo() {
           <polygon points="1708.8 230.5 1708.8 233.1 1723.2 254.5 1801.3 254.5 1812.3 242.3 1812.3 225.3 1713.8 225.3 1708.8 230.5" />
         </>,
       )}
-      {part(
+      {stackPart(
         9,
         <polyline points="1652.3 137.6 1869.4 137.6 1869.4 216 1652.3 216" />,
       )}
-      {part(
+      {stackPart(
         10,
         <polyline points="1652.3 79.1 1869.4 79.1 1869.4 130.2 1652.3 130.2" />,
       )}
-      {part(
+      {stackPart(
         11,
         <polyline points="1652.3 39.4 1869.4 39.4 1869.4 72.8 1652.3 72.8" />,
       )}
-      {part(
+      {stackPart(
         12,
         <polyline points="1652.3 10.1 1869.4 10.1 1869.4 33.6 1652.3 33.6" />,
       )}
-      {part(
+      {stackPart(
         13,
         <polyline points="1652.3 0 1869.4 0 1869.4 5 1652.3 5" />,
       )}

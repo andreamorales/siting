@@ -1,5 +1,6 @@
 import React from 'react';
 import HomeLogo from '../components/HomeLogo';
+import HomeSquareLogo from '../components/HomeSquareLogo';
 import HomeMapOrb from '../components/HomeMapOrb';
 import HomeMapCornerMark from '../components/HomeMapCornerMark';
 import HomeSiteBreakdown, { FLEET_SITES } from '../components/HomeSiteBreakdown';
@@ -20,6 +21,19 @@ const TABS = [
   { id: 'contact', label: 'Contact' },
 ];
 
+function HomeBackgroundFloatCards({ variant }) {
+  return (
+    <div className={`home-section-float-cards home-section-float-cards--${variant}`} aria-hidden="true">
+      <div className="home-section-float-card home-section-float-card--left">
+        <img src="/images/datacenter.png" alt="" />
+      </div>
+      <div className="home-section-float-card home-section-float-card--right">
+        <img src="/images/coolingtower.png" alt="" />
+      </div>
+    </div>
+  );
+}
+
 const CYCLE_MS = 3000;
 
 const CONTACT_THEME = {
@@ -33,6 +47,7 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = React.useState(null);
   const [activeIdx, setActiveIdx] = React.useState(0);
   const [toolbarTheme, setToolbarTheme] = React.useState(null);
+  const [menuOpen, setMenuOpen] = React.useState(false);
   const sectionRefs = React.useRef({});
   const shellRef = React.useRef(null);
   const toolbarRef = React.useRef(null);
@@ -46,6 +61,20 @@ export default function HomePage() {
       cycleRef.current = null;
     }
   }, []);
+
+  React.useEffect(() => {
+    if (!menuOpen) return undefined;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const onKey = (event) => {
+      if (event.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      document.body.style.overflow = prevOverflow;
+      window.removeEventListener('keydown', onKey);
+    };
+  }, [menuOpen]);
 
   React.useEffect(() => {
     cycleRef.current = setInterval(() => {
@@ -132,8 +161,40 @@ export default function HomePage() {
   const scrollToSection = React.useCallback((tabId) => {
     setActiveTab(tabId);
     isScrolling.current = true;
-    sectionRefs.current[tabId]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const root = shellRef.current;
+    const el = sectionRefs.current[tabId];
+    if (!root || !el) return;
+
+    if (tabId === 'contact') {
+      const rootTop = root.getBoundingClientRect().top;
+      const elTop = el.getBoundingClientRect().top;
+      root.scrollTo({
+        top: root.scrollTop + (elTop - rootTop),
+        behavior: 'smooth',
+      });
+    } else {
+      const rootTop = root.getBoundingClientRect().top;
+      const elTop = el.getBoundingClientRect().top;
+      const padTop = Number.parseFloat(getComputedStyle(root).scrollPaddingTop) || 0;
+      root.scrollTo({
+        top: root.scrollTop + (elTop - rootTop) - padTop,
+        behavior: 'smooth',
+      });
+    }
+
     setTimeout(() => { isScrolling.current = false; }, 800);
+  }, []);
+
+  const scrollToTop = React.useCallback(() => {
+    const root = shellRef.current;
+    if (!root) return;
+    setActiveTab(null);
+    isScrolling.current = true;
+    root.scrollTo({ top: 0, behavior: 'smooth' });
+    window.setTimeout(() => {
+      root.scrollTop = 0;
+      isScrolling.current = false;
+    }, 850);
   }, []);
 
   return (
@@ -148,9 +209,12 @@ export default function HomePage() {
           }}
         >
           <span className="home-beta-banner-text">
-            MeterZero has officially started development. Reach out to get on the waitlist.
+            <span className="home-beta-banner-line">MeterZero has officially started development.</span>
+            <span className="home-beta-banner-line">Reach out to get on the waitlist.</span>
           </span>
-          <i className="hn hn-arrow-right home-beta-banner-icon" aria-hidden="true" />
+          <span className="home-beta-banner-icon-wrap" aria-hidden="true">
+            <i className="hn hn-arrow-right home-beta-banner-icon" />
+          </span>
         </a>
         <div
           className="home-hero-toolbar"
@@ -164,7 +228,7 @@ export default function HomePage() {
         >
           <div className="home-hero-toolbar-start">
             <div className="home-hero-mark">
-              <button type="button" className="home-logo-btn" aria-label="MeterZero">
+              <button type="button" className="home-logo-btn" aria-label="MeterZero home" onClick={scrollToTop}>
                 <HomeLogo />
               </button>
             </div>
@@ -175,61 +239,118 @@ export default function HomePage() {
               Sign in
               <i className="hn hn-login home-signin-btn-icon" aria-hidden="true" />
             </button>
+            <button
+              type="button"
+              className="home-menu-btn"
+              aria-label="Open menu"
+              aria-expanded={menuOpen}
+              aria-controls="home-mobile-menu"
+              onClick={() => setMenuOpen(true)}
+            >
+              <i className="hn hn-bars" aria-hidden="true" />
+            </button>
           </div>
         </div>
 
-        <div className="home-panel home-panel--hero" ref={heroRef}>
-          <div className="home-hero-body">
-            <div className="home-hero-copy">
-              <h1 className="home-tagline">
-                <span className="home-tagline-line">Nuclear Data Center</span>
-                <span className="home-tagline-line">Co-Siting Tool</span>
-              </h1>
-            </div>
+        <div
+          id="home-mobile-menu"
+          className={'home-mobile-menu' + (menuOpen ? ' home-mobile-menu--open' : '')}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Site menu"
+          hidden={!menuOpen}
+        >
+          <div className="home-mobile-menu-bar">
+            <button
+              type="button"
+              className="home-logo-btn"
+              aria-label="MeterZero home"
+              onClick={() => {
+                setMenuOpen(false);
+                scrollToTop();
+              }}
+            >
+              <HomeLogo />
+            </button>
+            <button
+              type="button"
+              className="home-menu-btn"
+              aria-label="Close menu"
+              onClick={() => setMenuOpen(false)}
+            >
+              <i className="hn hn-times" aria-hidden="true" />
+            </button>
+          </div>
+          <nav className="home-mobile-menu-nav" aria-label="Site sections">
+            {TABS.map((tab) => (
+              <button
+                key={tab.id}
+                type="button"
+                className={'home-mobile-menu-link' + (activeTab === tab.id ? ' home-mobile-menu-link--active' : '')}
+                onClick={() => {
+                  setMenuOpen(false);
+                  scrollToSection(tab.id);
+                }}
+              >
+                {tab.label}
+              </button>
+            ))}
+            <button
+              type="button"
+              className="home-mobile-menu-link home-mobile-menu-link--signin"
+              onClick={() => setMenuOpen(false)}
+            >
+              Sign in
+              <i className="hn hn-login" aria-hidden="true" />
+            </button>
+          </nav>
+        </div>
 
-            <div className="home-map-cluster">
-              <div className="home-map-stage">
-                <div className="home-map-frame">
-                  <HomeMapOrb
-                    activeIdx={activeIdx}
-                    onSiteHover={handleSiteHover}
-                    onSiteSelect={handleSiteSelect}
-                  />
-                  <HomeMapCornerMark />
-                </div>
+        <div className="home-sections">
+          <div className="home-panel home-panel--hero" ref={heroRef}>
+            <div className="home-hero-body">
+              <div className="home-hero-copy">
+                <h1 className="home-tagline">
+                  <span className="home-tagline-line">Nuclear Data Center</span>
+                  <span className="home-tagline-line">Co-Siting Tool</span>
+                </h1>
               </div>
-              <HomeSiteNews activeIdx={activeIdx} />
-              <HomeSiteBreakdown activeIdx={activeIdx} />
+
+              <div className="home-map-cluster">
+                <HomeSiteBreakdown activeIdx={activeIdx} />
+                <div className="home-map-stage">
+                  <div className="home-map-frame">
+                    <HomeMapOrb
+                      activeIdx={activeIdx}
+                      onSiteHover={handleSiteHover}
+                      onSiteSelect={handleSiteSelect}
+                    />
+                    <HomeMapCornerMark />
+                  </div>
+                </div>
+                <HomeSiteNews activeIdx={activeIdx} />
+              </div>
+            </div>
+
+            <div className="home-affil">
+              <span className="home-affil-label st-title">MADE BY RESEARCHERS FROM</span>
+              <div className="home-affil-logos">
+                <img className="home-affil-logo" src="/logo/University_of_Michigan_logo.svg" alt="University of Michigan" />
+                <img className="home-affil-logo home-affil-logo--mit" src="/logo/MIT_logo.svg" alt="MIT" />
+                <img className="home-affil-logo" src="/logo/pittsburgh_technical.avif" alt="Pittsburgh Technical" />
+              </div>
             </div>
           </div>
 
-          <div className="home-affil">
-            <span className="home-affil-label st-title">MADE BY RESEARCHERS FROM</span>
-            <div className="home-affil-logos">
-              <img className="home-affil-logo" src="/logo/University_of_Michigan_logo.svg" alt="University of Michigan" />
-              <img className="home-affil-logo home-affil-logo--mit" src="/logo/MIT_logo.svg" alt="MIT" />
-              <img className="home-affil-logo" src="/logo/pittsburgh_technical.avif" alt="Pittsburgh Technical" />
-            </div>
-          </div>
-        </div>
-
-        {/* Content sections */}
-        {TABS.map((tab) => (
-          <section
-            key={tab.id}
-            id={tab.id}
-            ref={(node) => { sectionRefs.current[tab.id] = node; }}
-            className={`home-section home-section--${tab.id}`}
-          >
+          {TABS.map((tab) => (
+            <section
+              key={tab.id}
+              id={tab.id}
+              ref={(node) => { sectionRefs.current[tab.id] = node; }}
+              className={`home-section home-section--${tab.id}`}
+            >
             {tab.id === 'background' && (
-              <>
-                <div className="home-section-float-card home-section-float-card--left">
-                  <img src="/images/datacenter.png" alt="" />
-                </div>
-                <div className="home-section-float-card home-section-float-card--right">
-                  <img src="/images/coolingtower.png" alt="" />
-                </div>
-              </>
+              <HomeBackgroundFloatCards variant="desktop" />
             )}
             {tab.id === 'contact' && (
               <>
@@ -293,6 +414,7 @@ export default function HomePage() {
                     from multiple socio-technical dimensions, including interactions between data
                     center, nuclear plant, and electric power infrastructure development.
                   </p>
+                  <HomeBackgroundFloatCards variant="mobile" />
                 </>
               ) : tab.id === 'team' ? (
                 <HomeTeamSection />
@@ -300,7 +422,7 @@ export default function HomePage() {
                 <HomeRoadmapSection />
               ) : tab.id === 'contact' ? (
                 <div className="home-section-contact">
-                  <img className="home-section-contact-logo" src="/logo/meterzero_horizontal.svg" alt="MeterZero" />
+                  <HomeSquareLogo className="home-section-contact-logo" />
                   <HomeContactForm />
                 </div>
               ) : (
@@ -308,7 +430,8 @@ export default function HomePage() {
               )}
             </div>
           </section>
-        ))}
+          ))}
+        </div>
       </div>
     </div>
   );

@@ -29,8 +29,8 @@
 
   /* layout */
   --layout-header-h: 3.5em;
-  --layout-pad-x: var(--s-xl);
-  --layout-pad-y: var(--s-lg);
+  --layout-pad-x: var(--s-xxl);
+  --layout-pad-y: var(--s-xl);
   --layout-btn-pad-y: var(--s-xs);
   --layout-btn-pad-x: var(--s-md);
   --layout-hero-gap: var(--s-md);
