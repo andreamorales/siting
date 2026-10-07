@@ -13,7 +13,7 @@ function publicUrl(raw) {
   return null;
 }
 
-const timed = (init = {}) => ({ ...init, signal: AbortSignal.timeout(TIMEOUT_MS), headers: { 'User-Agent': UA, ...init.headers } });
+const timed = (init = {}) => ({ ...init, signal: AbortSignal.timeout(TIMEOUT_MS) });
 
 /** Reads at most MAX_BYTES, stopping early once </head> has streamed past. */
 async function readHead(res) {
@@ -35,13 +35,16 @@ async function readHead(res) {
 /** news.google.com/rss/articles/<id> is an opaque token; the News web app trades it for the publisher URL. */
 async function decodeGoogleNews(url) {
   const id = url.pathname.split('/').pop();
-  const page = await (await fetch(`https://news.google.com/articles/${id}`, timed())).text();
+  const page = await (await fetch(`https://news.google.com/rss/articles/${id}`, timed())).text();
   const sig = page.match(/data-n-a-sg="([^"]+)"/)?.[1];
   const ts = page.match(/data-n-a-ts="([^"]+)"/)?.[1];
   if (!sig || !ts) return null;
   const req = JSON.stringify([
     'garturlreq',
-    [['X', 'X', ['X', 'X'], null, null, 1, 1, 'US:en', null, 1, null, null, null, null, null, 0, 1], 'X', 'X', 1, [1, 1, 1], 1, 1, null, 0, 0, null, 0],
+    [
+      ['en-US', 'US', ['FINANCE_TOP_INDICES', 'WEB_TEST_1_0_0'], null, null, 1, 1, 'US:en', null, 180, null, null, null, null, null, 0, null, null, [1608992183, 723341000]],
+      'en-US', 'US', 1, [2, 3, 4, 8], 1, 0, '655000234', 0, 0, null, 0,
+    ],
     id,
     Number(ts),
     sig,
@@ -72,7 +75,7 @@ export async function resolveOgImage(raw) {
   if (!url) return null;
   if (url.hostname === 'news.google.com' && url.pathname.includes('/articles/')) url = await decodeGoogleNews(url);
   if (!url) return null;
-  const res = await fetch(url, timed({ redirect: 'follow', headers: { Accept: 'text/html,application/xhtml+xml' } }));
+  const res = await fetch(url.href, timed({ redirect: 'follow', headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml' } }));
   if (!res.ok || !/html/i.test(res.headers.get('content-type') ?? '')) return null;
   const image = metaImage(await readHead(res));
   if (!image) return null;
