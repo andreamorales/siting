@@ -26,6 +26,7 @@
   --t-xxl: 2.5em;
   --t-hero: 5em;
   --t-display: 7.5em;
+  --t-grade: 3.25em;
 
   /* layout */
   --layout-header-h: 3.5em;
@@ -40,6 +41,62 @@
   --layout-factor-card-min: 60vh;
   --layout-minimap-w: 16.25rem;
   --layout-minimap-h: 7.25rem;
+  --layout-dash-list-w: 20em;
+  --layout-tip-max: 20em;
+  --layout-pin-dot: 0.4em;
+  --layout-pin-mark: 0.55em;
+  --layout-pin-ring: 1.1em;
+  --layout-pin-hit: 1.5em;
+  --layout-pin-drag: 2em;
+  --layout-wiz-max: 60em;
+  --layout-stepper-num: 1.75em;
+  --layout-stepper-line-min: 2.5em;
+  --layout-results-max-h: 18em;
+  --layout-loc-map-h: 24em;
+  --layout-loc-panel-w: 17em;
+  --layout-loc-panel-max-h: 18em;
+  --layout-load-max: 40em;
+  --layout-slider-track-h: 0.75em;
+  --layout-slider-thumb-w: 0.9em;
+  --layout-slider-thumb-h: 2.25em;
+  --layout-case-max: 80em;
+  --layout-case-col-w: 15em;
+  --layout-case-tag-w: 8em;
+  --layout-case-minimap-h: 11em;
+  --layout-case-missing-w: 28em;
+  --layout-grade-size: 8.5em;
+  --layout-factor-k-w: 3.2em;
+  --layout-factor-v-w: 1.6em;
+  --layout-factor-track-h: 0.3em;
+  --layout-chart-h: 11em;
+  --layout-news-thumb: 2.75em;
+  --layout-hint-min-h: 1.4em;
+  --layout-help-min-h: 4.5em;
+  --layout-select-w: 16em;
+  --layout-select-menu-max-h: 16em;
+  --layout-search-max: 28em;
+  --layout-toolbar-label-w: 3.5em;
+
+  /* buttons — the only three sizes (md is the default). rem, not em, so a button renders
+     identically whatever its parent's font-size; values mirror the scale above at the 16px root.
+     Square (icon-only) buttons use the height as their width. */
+  --btn-h-sm: 1.75rem;
+  --btn-h-md: 2.25rem;
+  --btn-h-lg: 2.75rem;
+  --btn-px-sm: 0.75rem; /* --s-sm */
+  --btn-px-md: 1rem; /* --s-md */
+  --btn-px-lg: 1.5rem; /* --s-lg */
+  --btn-fs-sm: 0.75rem; /* --t-xs */
+  --btn-fs-md: 0.75rem; /* --t-xs */
+  --btn-fs-lg: 0.875rem; /* --t-sm */
+  --btn-icon-sm: 0.875rem; /* --t-sm */
+  --btn-icon-md: 1rem; /* --t-md */
+  --btn-icon-lg: 1.25rem; /* --t-lg */
+
+  /* radius */
+  --r-xs: 0.3em;
+  --r-sm: 0.35em;
+  --r-md: 0.5em;
 
   /* surfaces */
   --paper: #FDFDFC;
@@ -61,7 +118,71 @@
   --banner: var(--ink);
   --banner-fg: var(--solidfg);
 
+  /* palette */
+  --red-light: #FFD7D3;
+  --red-dark: #B0201B;
+  --orange-light: #FDD9C6;
+  --orange-dark: #9A4601;
+  --yellow-light: #F1E0BE;
+  --yellow-dark: #8B5602;
+  --green-light: #CAECD4;
+  --green-dark: #177245;
+  --teal-light: #BEECEC;
+  --teal-dark: #016D6E;
+  --blue-light: #CFE4FF;
+  --blue-dark: #1E5FAA;
+  --purple-light: #E4DCFF;
+  --purple-dark: #674FA8;
+  --pink-light: #FCD5E6;
+  --pink-dark: #983B6D;
+  --gray-light: #DFE2E7;
+  --gray-dark: #59606B;
+
   /* typography */
   --font-title: 'Kode Mono', ui-monospace, monospace;
   --font-content: 'IBM Plex Mono', ui-monospace, monospace;
+
+  /* motion — appear/disappear only; hover and focus changes are instant.
+     --dur-exit must match EXIT_MS in src/lib/usePresence.js. */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --dur-fast: 180ms;
+  --dur-med: 300ms;
+  --dur-slow: 450ms;
+  --dur-exit: 140ms;
+  --stagger: 40ms;
+  --stagger-max: 8;
+  --rise-y: 8px;
+  --drop-y: -4px;
+  --slide-x: 10px;
+  --pop-scale: 0.96;
+  --mark-scale: 0.6;
+  --pin-scale: 0.4;
+  --grow-from: 0;
+}
+
+/* reduced motion: keep the fades, drop every translate / scale / grow */
+@media (prefers-reduced-motion: reduce) {
+  .st-board {
+    --rise-y: 0px;
+    --drop-y: 0px;
+    --slide-x: 0px;
+    --pop-scale: 1;
+    --mark-scale: 1;
+    --pin-scale: 1;
+    --grow-from: 1;
+    --stagger: 0ms;
+  }
+}
+
+/* product (dashboard, wizard, case) palette — scoped so marketing boards keep their own values */
+.st-board:is(.dash-page, .product-page) {
+  --faint: #A6ABB1;
+  --mapbg: #FBFBFA;
+  --accent: #E8492C;
+  --case: var(--blue-dark);
+  --case-bg: var(--blue-light);
+  --score-good: var(--ink);
+  --score-warn: var(--yellow-dark);
+  --score-bad: var(--red-dark);
 }

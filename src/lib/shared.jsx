@@ -16,7 +16,7 @@ const T = {
   blue: '#1B4DD1',
   orange: '#C2410C',
   green: '#177245',
-  amber: '#A4670B',
+  amber: '#8B5602',
   red: '#B0201B',
   font: `'IBM Plex Mono', ui-monospace, monospace`,
   title: `'Kode Mono', ui-monospace, monospace`,
@@ -195,7 +195,7 @@ if (typeof document !== 'undefined' && !document.getElementById('siting-base')) 
       --paper:#FDFDFC; --card:#FFFFFF; --ink:#1C1B1B; --ink2:#33373D; --mut:#767C84; --faint:#A6ABB1;
       --line:#E6E8EA; --line2:#F0F1F2; --grid:rgba(28,27,27,0.05);
       --solid:#1C1B1B; --solidfg:#FFFFFF; --rail:#1C1B1B; --mapbg:#FBFBFA; --mapcall:rgba(251,251,250,0.85);
-      --pos:#177245; --warn:#A4670B; --neg:#B0201B; --frame:#C2C7CE;
+      --pos:#177245; --warn:#8B5602; --neg:#B0201B; --frame:#C2C7CE;
       --scorebg:#1C1B1B; --scorefg:#F4F5F5; --scoremut:rgba(244,245,245,0.62);
       --scoreline:rgba(255,255,255,0.16); --scoreline2:rgba(255,255,255,0.08); --scoreaccent:#6EE7A8;
       --banner:var(--ink); --banner-fg:var(--solidfg);

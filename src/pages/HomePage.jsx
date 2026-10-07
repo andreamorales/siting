@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import HomeLogo from '../components/HomeLogo';
 import HomeSquareLogo from '../components/HomeSquareLogo';
 import HomeMapOrb from '../components/HomeMapOrb';
@@ -235,10 +236,10 @@ export default function HomePage() {
             <HomeTabs tabs={TABS} activeTab={activeTab} onTabChange={scrollToSection} />
           </div>
           <div className="home-hero-toolbar-end">
-            <button type="button" className="home-signin-btn">
+            <Link to="/signin" className="home-signin-btn">
               Sign in
               <i className="hn hn-login home-signin-btn-icon" aria-hidden="true" />
-            </button>
+            </Link>
             <button
               type="button"
               className="home-menu-btn"
@@ -295,14 +296,13 @@ export default function HomePage() {
                 {tab.label}
               </button>
             ))}
-            <button
-              type="button"
+            <Link
+              to="/signin"
               className="home-mobile-menu-link home-mobile-menu-link--signin"
-              onClick={() => setMenuOpen(false)}
             >
               Sign in
               <i className="hn hn-login" aria-hidden="true" />
-            </button>
+            </Link>
           </nav>
         </div>
 

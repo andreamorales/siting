@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    { "source": "/api/gnews", "destination": "/api/news?source=google" },
+    { "source": "/api/gdelt", "destination": "/api/news?source=gdelt" },
+    { "source": "/api/og", "destination": "/api/news?source=og" },
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
+  ]
+}

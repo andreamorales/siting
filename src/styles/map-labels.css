@@ -1,0 +1,80 @@
+/* Custom basemap labels (MapLabels.jsx).
+   MapLibre sets a 12px font on .maplibregl-map; reset to the root base so em tokens resolve like on .st-board. */
+.ml-label {
+  display: flex;
+  font-size: 1rem;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ml-text {
+  display: flex;
+  align-items: center;
+  gap: var(--s-xxs);
+  white-space: nowrap;
+  text-shadow:
+    0 0 var(--s-xxs) var(--mapbg, var(--paper)),
+    0 0 var(--s-xxs) var(--mapbg, var(--paper));
+}
+
+.ml-text--off {
+  display: none;
+}
+
+.ml-state {
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--faint, var(--mut));
+}
+
+.ml-state--full {
+  font-size: var(--t-xxs);
+  letter-spacing: 0.2em;
+  color: var(--mut);
+}
+
+.ml-region {
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  font-style: italic;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--faint, var(--mut));
+}
+
+.ml-region--country {
+  font-style: normal;
+  font-size: var(--t-xs);
+}
+
+.ml-city {
+  font-family: var(--font-content);
+  font-size: var(--t-xxs);
+  color: var(--ink2);
+}
+
+.ml-city-dot {
+  flex: none;
+  width: var(--s-xxs);
+  height: var(--s-xxs);
+  border-radius: 50%;
+  background: var(--ink2);
+  box-shadow: 0 0 0 1px var(--mapbg, var(--paper));
+}
+
+.ml-city-name {
+  font-size: inherit;
+}
+
+/* Places from the basemap's place layer reuse .ml-city; villages/suburbs/hamlets get a quieter tone. */
+.ml-place--minor {
+  color: var(--mut);
+}
+
+.ml-place--minor .ml-city-dot {
+  background: var(--mut);
+}
