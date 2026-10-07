@@ -1,0 +1,201 @@
+/* step 2 — grid load */
+.load-control {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  gap: var(--s-sm);
+  width: min(100%, var(--layout-load-max));
+  padding-top: var(--s-lg);
+}
+
+.load-readout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-xs);
+}
+
+.load-value {
+  font-family: var(--font-title);
+  font-size: var(--t-xxl);
+  font-weight: 500;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.load-zone {
+  padding: var(--s-xxs) var(--s-xs);
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.load-zone--green { background: var(--green-light); color: var(--green-dark); }
+.load-zone--yellow { background: var(--yellow-light); color: var(--yellow-dark); }
+.load-zone--orange { background: var(--orange-light); color: var(--orange-dark); }
+.load-zone--red { background: var(--red-light); color: var(--red-dark); }
+
+.load-slider {
+  --zone-track: linear-gradient(
+    to right,
+    var(--green-light) 0 var(--zone-1),
+    var(--yellow-light) var(--zone-1) var(--zone-2),
+    var(--orange-light) var(--zone-2) var(--zone-3),
+    var(--red-light) var(--zone-3) 100%
+  );
+  width: 100%;
+  height: var(--layout-slider-thumb-h);
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  cursor: pointer;
+  outline: none;
+}
+
+.load-slider::-webkit-slider-runnable-track {
+  height: var(--layout-slider-thumb-h);
+  border-radius: var(--r-xs);
+  background: var(--zone-track) center / 100% var(--layout-slider-track-h) no-repeat;
+}
+
+.load-slider::-moz-range-track {
+  height: var(--layout-slider-track-h);
+  border-radius: var(--r-xs);
+  background: var(--zone-track);
+}
+
+.load-slider::-webkit-slider-thumb {
+  width: var(--layout-slider-thumb-w);
+  height: var(--layout-slider-thumb-h);
+  appearance: none;
+  -webkit-appearance: none;
+  border: 2px solid var(--card);
+  border-radius: var(--r-xs);
+  background: var(--ink);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.load-slider::-moz-range-thumb {
+  width: var(--layout-slider-thumb-w);
+  height: var(--layout-slider-thumb-h);
+  border: 2px solid var(--card);
+  border-radius: var(--r-xs);
+  background: var(--ink);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+}
+
+.load-slider:active::-webkit-slider-thumb {
+  transform: scaleX(1.25);
+}
+
+.load-slider:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 25%, transparent);
+}
+
+.load-slider:focus-visible::-moz-range-thumb {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 25%, transparent);
+}
+
+.load-legend {
+  display: flex;
+}
+
+.load-legend-seg {
+  display: flex;
+  flex-basis: 0;
+  justify-content: space-between;
+  gap: var(--s-xxs);
+  min-width: 0;
+  padding-left: var(--s-xxs);
+  border-left: 1px solid var(--line);
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.04em;
+  color: var(--mut);
+  white-space: nowrap;
+}
+
+.load-help {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-xs);
+  min-height: var(--layout-help-min-h);
+}
+
+.load-help-note {
+  font-size: var(--t-xs);
+  color: var(--mut);
+  text-align: center;
+  animation: prod-drop var(--dur-fast) var(--ease-out) both;
+}
+
+/* step 3 — review */
+.review-rows {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-md);
+  padding: var(--s-sm) 0;
+  border-bottom: 1px solid var(--line2);
+}
+
+.review-k {
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.review-v {
+  font-size: var(--t-sm);
+  font-weight: 600;
+  text-align: right;
+}
+
+.review-row--control {
+  align-items: center;
+}
+
+.review-control {
+  display: flex;
+  flex: 0 1 var(--layout-select-w);
+  min-width: 0;
+}
+
+.review-name {
+  align-items: center;
+  gap: var(--s-xxs);
+}
+
+.review-name-input {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--s-xxs) 0;
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  text-align: right;
+  outline: none;
+}
+
+.review-name-input:focus {
+  border-bottom-color: var(--ink);
+}
+
+.review-name-input::placeholder {
+  color: var(--faint);
+}

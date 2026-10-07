@@ -1,0 +1,48 @@
+.case-missing {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--s-md);
+  width: min(100%, var(--layout-case-missing-w));
+  padding: var(--s-xl);
+}
+
+.case-missing .wiz-question,
+.case-missing .wiz-sub {
+  text-align: left;
+}
+
+@media (max-width: 720px) {
+  .prod-main {
+    padding: var(--s-md) var(--s-sm) var(--s-xl);
+  }
+
+  .wiz {
+    padding: var(--s-lg) var(--s-md);
+  }
+
+  .wiz-steps-label {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .loc-body {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .loc-map {
+    flex: 0 0 var(--layout-loc-map-h);
+    height: var(--layout-loc-map-h);
+  }
+
+  .loc-panel {
+    flex: 0 0 auto;
+    width: auto;
+    max-height: var(--layout-loc-panel-max-h);
+  }
+}

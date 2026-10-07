@@ -1,0 +1,292 @@
+/* step 1 — location */
+.loc-search {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xs);
+}
+
+.loc-search-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.loc-search-box {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+  padding: var(--s-sm) var(--s-md);
+  border: 1px solid var(--ink);
+  border-radius: var(--r-xs);
+  background: var(--card);
+  color: var(--mut);
+}
+
+.loc-search-box:focus-within {
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.loc-search-box--issue {
+  border-color: var(--red-dark);
+}
+
+.loc-search-box--issue:focus-within {
+  box-shadow: 0 0 0 1px var(--red-dark);
+}
+
+.loc-search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: var(--font-content);
+  font-size: var(--t-md);
+  color: var(--ink);
+}
+
+.loc-search-input::placeholder {
+  color: var(--faint);
+}
+
+.loc-spin {
+  animation: prod-spin 0.8s linear infinite;
+}
+
+@keyframes prod-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loc-results {
+  position: absolute;
+  z-index: 10;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  max-height: var(--layout-results-max-h);
+  padding: var(--s-xxs);
+  overflow-y: auto;
+  list-style: none;
+  border: 1px solid var(--ink);
+  border-top: none;
+  border-radius: 0 0 var(--r-xs) var(--r-xs);
+  background: var(--card);
+  box-shadow: 0 0.6em 1.5em color-mix(in srgb, var(--ink) 10%, transparent);
+}
+
+.loc-result {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--s-xxs) / 2);
+  padding: var(--s-xs) var(--s-sm);
+  border-radius: var(--r-xs);
+  cursor: pointer;
+}
+
+.loc-result--active {
+  background: var(--line2);
+}
+
+.loc-result-main {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--s-sm);
+}
+
+.loc-result-name {
+  font-size: var(--t-sm);
+  font-weight: 600;
+}
+
+.loc-result-type {
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.loc-result-detail {
+  overflow: hidden;
+  font-size: var(--t-xs);
+  color: var(--mut);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.loc-hint {
+  min-height: var(--layout-hint-min-h);
+  font-size: var(--t-xs);
+  color: var(--mut);
+  line-height: 1.4;
+}
+
+.loc-hint--issue {
+  color: var(--red-dark);
+  font-weight: 600;
+}
+
+.loc-hint-text {
+  display: block;
+  animation: prod-fade-in var(--dur-fast) var(--ease-out) both;
+}
+
+.loc-hint--issue .loc-hint-text {
+  animation-name: prod-drop;
+}
+
+.loc-body {
+  display: flex;
+  align-items: stretch;
+  gap: var(--s-lg);
+  height: var(--layout-loc-map-h);
+  min-height: 0;
+}
+
+.loc-map {
+  position: relative;
+  display: flex;
+  flex: 1 1 0;
+  min-width: 0;
+  height: 100%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--mapbg);
+}
+
+.loc-map .maplibregl-map {
+  font-size: inherit;
+}
+
+.loc-pin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-pin-drag);
+  height: var(--layout-pin-drag);
+  cursor: grab;
+  animation: prod-pin-in var(--dur-med) var(--ease-out) both;
+}
+
+.loc-pin:active {
+  cursor: grabbing;
+}
+
+.loc-panel {
+  display: flex;
+  flex: 0 0 var(--layout-loc-panel-w);
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--s-sm);
+  width: var(--layout-loc-panel-w);
+  min-width: 0;
+  min-height: 0;
+  max-height: 100%;
+  overflow-y: auto;
+  padding: var(--s-md);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--card);
+}
+
+/* panel is keyed by pin, so each new verdict staggers its rows in */
+.loc-panel > * {
+  animation: prod-rise var(--dur-med) var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * var(--stagger));
+}
+
+.loc-panel > :nth-child(2) { --i: 1; }
+.loc-panel > :nth-child(3) { --i: 2; }
+.loc-panel > :nth-child(4) { --i: 3; }
+.loc-panel > :nth-child(5) { --i: 4; }
+
+.loc-panel--good {
+  border-color: color-mix(in srgb, var(--green-dark) 35%, var(--line));
+}
+
+.loc-panel--bad {
+  border-color: color-mix(in srgb, var(--red-dark) 35%, var(--line));
+}
+
+.loc-panel-kicker {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  gap: var(--s-xs);
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.loc-panel--good .loc-panel-kicker {
+  color: var(--green-dark);
+}
+
+.loc-panel--bad .loc-panel-kicker {
+  color: var(--red-dark);
+}
+
+.loc-panel-index {
+  flex: 1;
+  color: var(--mut);
+  text-align: right;
+}
+
+.loc-panel-text {
+  font-size: var(--t-sm);
+  line-height: 1.5;
+  color: var(--ink2);
+}
+
+.loc-panel-meta {
+  padding-top: var(--s-xs);
+  border-top: 1px solid var(--line2);
+  align-self: stretch;
+  font-size: var(--t-xs);
+  line-height: 1.4;
+  color: var(--mut);
+}
+
+.loc-spots {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  gap: var(--s-xs);
+  padding: 0;
+  list-style: none;
+}
+
+.loc-spots[data-state='closed'] {
+  pointer-events: none;
+  animation: prod-collapse var(--dur-exit) var(--ease-in) forwards;
+}
+
+.loc-panel-btn {
+  align-self: stretch;
+  flex-shrink: 0;
+}
+
+.loc-spot {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--s-xs);
+  min-width: 0;
+  padding-top: var(--s-xs);
+  border-top: 1px solid var(--line2);
+  animation: prod-rise var(--dur-med) var(--ease-out) both;
+}
+
+.loc-spot-label {
+  font-size: var(--t-xs);
+  color: var(--ink2);
+}

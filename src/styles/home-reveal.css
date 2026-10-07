@@ -1,0 +1,286 @@
+@keyframes home-frame-draw {
+  to {
+    background-size:
+      100% var(--frame-line),
+      100% var(--frame-line),
+      var(--frame-line) 100%,
+      var(--frame-line) 100%;
+  }
+}
+
+@keyframes home-frame-content {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes home-fade {
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes home-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-slide-left {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes home-reveal-rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-reveal-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes home-roadmap-milestone-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(3px);
+  }
+}
+
+@keyframes home-roadmap-milestone-in-active {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes home-roadmap-connector-draw {
+  from {
+    transform: scaleX(0);
+  }
+
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.home-page {
+  --home-ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --home-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ── Scroll-reveal base: hidden by default, revealed by .home-section--in-view ── */
+
+.home-section--background .home-label,
+.home-section--background .home-section-headline-line,
+.home-section--background .home-section-text,
+.home-section--background .home-section-float-card img,
+.home-section--team .home-label,
+.home-section--team .home-section-headline-line,
+.home-section--team .home-team-panel,
+.home-section--team .home-team-tabs .home-tab,
+.home-section--roadmap .home-roadmap-intro .home-label,
+.home-section--roadmap .home-roadmap-intro .home-section-headline-line,
+.home-section--roadmap .home-roadmap-intro .home-section-text,
+.home-section--roadmap .home-roadmap-tabs,
+.home-section--roadmap .home-roadmap-timeline,
+.home-section--contact .home-section-reticule,
+.home-section--contact .home-section-contact-logo,
+.home-section--contact .home-section-contact-input,
+.home-section--contact .home-section-contact-submit {
+  opacity: 0;
+  transform: translateY(18px);
+}
+
+.home-section--background .home-section-float-card img,
+.home-section--contact .home-section-reticule {
+  transform: none;
+}
+
+.home-section--contact .home-section-contact-ring {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+/* Background in-view */
+.home-section--background.home-section--in-view .home-section-float-card img {
+  animation: home-reveal-fade 0.6s var(--home-ease-out) forwards;
+}
+
+.home-section--background.home-section--in-view .home-section-float-card--right img {
+  animation-delay: 0.12s;
+}
+
+.home-section--background.home-section--in-view .home-label {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.08s forwards;
+}
+
+.home-section--background.home-section--in-view .home-section-headline-line:nth-child(1) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.16s forwards;
+}
+
+.home-section--background.home-section--in-view .home-section-headline-line:nth-child(2) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.24s forwards;
+}
+
+.home-section--background.home-section--in-view .home-section-inner > .home-section-text:nth-of-type(1) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.32s forwards;
+}
+
+.home-section--background.home-section--in-view .home-section-inner > .home-section-text:nth-of-type(2) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.4s forwards;
+}
+
+.home-section--background.home-section--in-view .home-section-inner > .home-section-text:nth-of-type(3) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.48s forwards;
+}
+
+/* Team in-view */
+.home-section--team.home-section--in-view .home-label {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.06s forwards;
+}
+
+.home-section--team.home-section--in-view .home-section-headline-line {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.14s forwards;
+}
+
+.home-section--team.home-section--in-view .home-team-panel {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.2s forwards;
+}
+
+.home-section--team.home-section--in-view .home-team-tabs .home-tab {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) forwards;
+  animation-delay: calc(0.28s + (var(--tab-i, 0) * 0.04s));
+}
+
+/* Roadmap in-view */
+.home-section--roadmap.home-section--in-view .home-roadmap-intro .home-label {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.06s forwards;
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap-intro .home-section-headline-line:nth-child(1) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.14s forwards;
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap-intro .home-section-headline-line:nth-child(2) {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.22s forwards;
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap-intro .home-section-text {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.3s forwards;
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap-tabs {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.38s forwards;
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap-timeline {
+  animation: home-reveal-rise 0.72s var(--home-ease-out) 0.46s forwards;
+}
+
+/* Entrance animations — only before --revealed */
+.home-section--roadmap.home-section--in-view .home-roadmap:not(.home-roadmap--revealed) .home-roadmap-milestone:not(.home-roadmap-milestone--active) {
+  animation: home-roadmap-milestone-in 0.65s var(--home-ease-out) forwards;
+  animation-delay: calc(0.52s + (var(--milestone-i, 0) * 0.045s));
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap:not(.home-roadmap--revealed) .home-roadmap-milestone--active {
+  animation: home-roadmap-milestone-in-active 0.65s var(--home-ease-out) forwards;
+  animation-delay: calc(0.52s + (var(--milestone-i, 0) * 0.045s));
+}
+
+.home-section--roadmap.home-section--in-view .home-roadmap:not(.home-roadmap--revealed) .home-roadmap-connector {
+  animation: home-roadmap-connector-draw 0.55s var(--home-ease-out) forwards;
+  animation-delay: calc(0.58s + (var(--milestone-i, 0) * 0.045s));
+  transform-origin: left center;
+}
+
+/* After entrance: clear animations, let transitions take over */
+.home-roadmap--revealed .home-roadmap-milestone {
+  animation: none !important;
+  opacity: 1;
+  transform: translateY(3px);
+}
+
+.home-roadmap--revealed .home-roadmap-milestone--active {
+  transform: translateY(0);
+}
+
+.home-roadmap--revealed .home-roadmap-connector {
+  animation: none !important;
+  transform: scaleX(1);
+}
+
+/* Contact in-view */
+.home-section--contact.home-section--in-view .home-section-reticule {
+  animation: home-reveal-fade 1.1s var(--home-ease-out) forwards;
+}
+
+.home-section--contact.home-section--in-view .home-section-contact-ring {
+  animation-play-state: running;
+}
+
+.home-section--contact.home-section--in-view .home-section-contact-logo .home-logo-part--stack {
+  animation: home-logo-stack 0.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  animation-delay: calc(0.12s + var(--logo-i) * 0.075s);
+}
+
+.home-section--contact.home-section--in-view .home-section-contact-input {
+  animation: home-reveal-rise 0.75s var(--home-ease-out) 0.22s forwards;
+}
+
+.home-section--contact.home-section--in-view .home-section-contact-submit {
+  animation: home-reveal-rise 0.75s var(--home-ease-out) 0.32s forwards;
+}

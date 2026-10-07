@@ -1,0 +1,92 @@
+/* ─── Local news: source caption, loading skeletons, article photos ─── */
+
+.case-news-thumb {
+  display: flex;
+  overflow: hidden;
+  background-position: center;
+  background-size: cover;
+}
+
+.case-news-photo {
+  flex: 1 1 auto;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--dur-med) var(--ease-out);
+}
+
+.case-news-photo.is-loaded {
+  opacity: 1;
+}
+
+.case-section-head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xxs);
+  padding-bottom: var(--s-xs);
+  border-bottom: 1px solid var(--ink);
+}
+
+.case-section-head .case-section-title {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.case-section-caption {
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.06em;
+  color: var(--mut);
+}
+
+.case-news--skeleton,
+.case-news--skeleton:hover {
+  background: var(--card);
+  cursor: default;
+}
+
+.case-news--skeleton .case-news-thumb,
+.case-news-bar {
+  animation: case-news-shimmer 1.2s ease-in-out infinite alternate;
+}
+
+.case-news--skeleton .case-news-body {
+  justify-content: center;
+  gap: var(--s-xxs);
+  align-self: stretch;
+}
+
+.case-news-bar {
+  width: 100%;
+  height: var(--t-xs);
+  border-radius: var(--r-xs);
+  background: var(--line2);
+}
+
+.case-news-bar--short {
+  width: 45%;
+  height: var(--t-xxs);
+}
+
+@keyframes case-news-shimmer {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.45;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .case-news--skeleton .case-news-thumb,
+  .case-news-bar {
+    animation: none;
+  }
+
+  .case-news-photo {
+    transition: none;
+  }
+}
+
+/* ─── end Local news ─── */

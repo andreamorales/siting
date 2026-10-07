@@ -1,0 +1,199 @@
+/* ── daisyUI skin — product roots carry data-theme="meterzero" (colors/radii in tailwind.config.js) ──
+   :where() keeps base skins at daisy's own specificity so page classes below can refine them;
+   state overrides use [data-theme] to outrank daisy's :hover / :disabled rules. */
+/* sizes: exactly three — .btn = md (default), .btn-sm = sm, .btn-lg = lg (tokens.css --btn-*).
+   .btn-xs folds into sm and .btn-md is plain md; these load after daisy's size rules and outrank them. */
+:where([data-theme='meterzero']) .btn {
+  --btn-h: var(--btn-h-md);
+  --btn-px: var(--btn-px-md);
+  --btn-fs: var(--btn-fs-md);
+  --btn-icon: var(--btn-icon-md);
+  flex-wrap: nowrap;
+  gap: var(--s-xs);
+  height: var(--btn-h);
+  min-height: var(--btn-h);
+  padding: 0 var(--btn-px);
+  font-family: var(--font-title);
+  font-size: var(--btn-fs);
+  font-weight: inherit;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  border-width: 1px;
+  border-radius: var(--r-sm);
+  box-shadow: none;
+  animation: none;
+  transition: none;
+}
+
+[data-theme='meterzero'] .btn:active:is(:hover, :focus) {
+  transform: none;
+}
+
+:where([data-theme='meterzero']) .btn:is(.btn-xs, .btn-sm) {
+  --btn-h: var(--btn-h-sm);
+  --btn-px: var(--btn-px-sm);
+  --btn-fs: var(--btn-fs-sm);
+  --btn-icon: var(--btn-icon-sm);
+}
+
+:where([data-theme='meterzero']) .btn.btn-lg {
+  --btn-h: var(--btn-h-lg);
+  --btn-px: var(--btn-px-lg);
+  --btn-fs: var(--btn-fs-lg);
+  --btn-icon: var(--btn-icon-lg);
+}
+
+:where([data-theme='meterzero']) .btn.btn-square {
+  flex: 0 0 var(--btn-h);
+  width: var(--btn-h);
+  height: var(--btn-h);
+  min-height: var(--btn-h);
+  padding: 0;
+  font-size: var(--btn-icon);
+}
+
+[data-theme='meterzero'] .btn-neutral,
+[data-theme='meterzero'] .btn-neutral:hover {
+  border-color: var(--ink);
+  background-color: var(--ink);
+  color: var(--solidfg);
+}
+
+[data-theme='meterzero'] .btn-neutral:hover {
+  opacity: 0.88;
+}
+
+[data-theme='meterzero'] .btn-outline {
+  border-color: var(--line);
+  background-color: transparent;
+  color: var(--ink2);
+}
+
+[data-theme='meterzero'] .btn-outline:hover {
+  border-color: var(--line);
+  background-color: var(--line2);
+  color: var(--ink2);
+}
+
+[data-theme='meterzero'] .btn-outline.btn-square,
+[data-theme='meterzero'] .btn-outline.btn-square:hover {
+  background-color: var(--card);
+  color: var(--ink);
+}
+
+[data-theme='meterzero'] .btn-outline.btn-square:hover {
+  border-color: var(--ink);
+}
+
+[data-theme='meterzero'] .btn-ghost {
+  border-color: transparent;
+  background-color: transparent;
+  color: var(--ink2);
+}
+
+[data-theme='meterzero'] .btn-ghost:hover {
+  border-color: transparent;
+  background-color: var(--line2);
+  color: var(--ink);
+}
+
+[data-theme='meterzero'] .btn:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+[data-theme='meterzero'] .btn:disabled {
+  pointer-events: auto;
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+[data-theme='meterzero'] .btn-neutral:disabled {
+  border-color: var(--ink);
+  background-color: var(--ink);
+  color: var(--solidfg);
+}
+
+:where([data-theme='meterzero']) .badge {
+  gap: var(--s-xxs);
+  min-width: 0;
+  max-width: 100%;
+  height: auto;
+  padding: var(--s-xxs) var(--s-xs);
+  border: none;
+  border-radius: var(--r-xs);
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: inherit;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: none;
+}
+
+[data-theme='meterzero'] .badge-secondary {
+  background-color: var(--purple-light);
+  color: var(--purple-dark);
+}
+
+:where([data-theme='meterzero']) .input {
+  height: auto;
+  border-color: var(--line);
+  border-radius: var(--r-xs);
+  background-color: var(--card);
+  color: var(--ink);
+  font-size: inherit;
+  line-height: inherit;
+  transition: none;
+}
+
+[data-theme='meterzero'] .input:focus,
+[data-theme='meterzero'] .input:focus-within {
+  outline: none;
+  border-color: var(--ink);
+}
+
+:where([data-theme='meterzero']) .dropdown-content {
+  z-index: 10;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  box-shadow: 0 0.6em 1.5em color-mix(in srgb, var(--ink) 10%, transparent);
+  transform: none;
+  transform-origin: top;
+  transition: none;
+}
+
+:where([data-theme='meterzero']) .menu {
+  flex-wrap: nowrap;
+  padding: var(--s-xxs);
+  font-size: var(--t-sm);
+  line-height: inherit;
+}
+
+:where([data-theme='meterzero']) .menu :where(li > *:not(ul, details, .menu-title, .btn)) {
+  gap: var(--s-xs);
+  padding: var(--s-xs) var(--s-sm);
+  border-radius: var(--r-xs);
+  text-wrap: wrap;
+  transition: none;
+}
+
+[data-theme='meterzero'] .menu li > :not(.active):is(:hover, :focus, .focus) {
+  background-color: var(--line2);
+  color: var(--ink);
+}
+
+[data-theme='meterzero'] .menu li > .active,
+[data-theme='meterzero'] .menu li > :not(ul):active {
+  background-color: var(--ink);
+  color: var(--solidfg);
+}
+
+[data-theme='meterzero'] .menu li > .active:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 1px;
+}

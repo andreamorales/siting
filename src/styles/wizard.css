@@ -1,0 +1,283 @@
+/* ── product pages: new case wizard + case study ── */
+.product-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: var(--font-content);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.product-page :is(h1, h2, p, ul, ol, dl, dd) {
+  margin: 0;
+}
+
+.product-page fieldset {
+  margin: 0;
+  padding: 0;
+  border: none;
+  min-width: 0;
+}
+
+.prod-main {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  justify-content: center;
+  min-height: 0;
+  padding: var(--s-xl) var(--s-lg) var(--s-xxl);
+  overflow-y: auto;
+  background-image:
+    linear-gradient(color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--ink) 4%, transparent) 1px, transparent 1px);
+  background-size: 2.5em 2.5em;
+}
+
+.prod-main > :is(.wiz, .case-missing) {
+  animation: prod-rise var(--dur-slow) var(--ease-out) both;
+}
+
+/* homepage-style frame card with extended corner lines */
+.prod-frame {
+  --frame-extend: 0.7em;
+  --frame-line: 1px;
+  --frame-color: var(--line);
+  position: relative;
+  background: color-mix(in srgb, var(--paper) 90%, transparent);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 0.4em 1.5em color-mix(in srgb, var(--ink) 5%, transparent);
+}
+
+.prod-frame::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  left: calc(-1 * var(--frame-extend));
+  top: calc(-1 * var(--frame-extend));
+  width: calc(100% + 2 * var(--frame-extend));
+  height: calc(100% + 2 * var(--frame-extend));
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--frame-color), var(--frame-color)),
+    linear-gradient(var(--frame-color), var(--frame-color)),
+    linear-gradient(var(--frame-color), var(--frame-color)),
+    linear-gradient(var(--frame-color), var(--frame-color));
+  background-repeat: no-repeat;
+  background-position:
+    0 var(--frame-extend),
+    0 calc(100% - var(--frame-extend)),
+    var(--frame-extend) 0,
+    calc(100% - var(--frame-extend)) 0;
+  background-size:
+    0% var(--frame-line),
+    0% var(--frame-line),
+    var(--frame-line) 0%,
+    var(--frame-line) 0%;
+  animation: home-frame-draw 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.1s forwards;
+}
+
+.prod-frame > * {
+  position: relative;
+  z-index: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .prod-frame::before {
+    animation: none;
+    background-size:
+      100% var(--frame-line),
+      100% var(--frame-line),
+      var(--frame-line) 100%,
+      var(--frame-line) 100%;
+  }
+}
+
+/* wizard */
+.wiz {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-xl);
+  width: min(100%, var(--layout-wiz-max));
+  padding: var(--s-xl);
+}
+
+.wiz-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-lg);
+  padding-bottom: var(--s-md);
+  border-bottom: 1px solid var(--line2);
+}
+
+/* daisyUI steps, laid out inline: connector (::before) · number box (::after) · label */
+.wiz-steps.steps {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--s-sm);
+  padding: 0;
+  overflow: visible;
+  list-style: none;
+}
+
+.wiz-steps .step {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--s-xs);
+  min-width: 0;
+  color: var(--mut);
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  text-align: start;
+}
+
+.wiz-steps .step + .step {
+  flex: 1 1 auto;
+}
+
+/* extra transparent border tops the in-item gap up to the list gap on the line's right side */
+.wiz-steps.steps .step::before {
+  order: 0;
+  flex: 1 1 var(--layout-stepper-line-min);
+  width: auto;
+  height: 1px;
+  margin: 0;
+  border-right: var(--s-xs) solid transparent;
+  background-clip: padding-box;
+  background-color: var(--line);
+  transform: none;
+  pointer-events: none;
+}
+
+.wiz-steps.steps .step-primary + .step-primary::before {
+  background-color: var(--ink);
+}
+
+.wiz-steps.steps .step::after {
+  order: 1;
+  display: flex;
+  flex: 0 0 var(--layout-stepper-num);
+  align-items: center;
+  justify-content: center;
+  width: var(--layout-stepper-num);
+  height: var(--layout-stepper-num);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  background-color: var(--card);
+  color: inherit;
+  pointer-events: none;
+}
+
+.wiz-steps.steps .step-primary::after {
+  border-color: var(--ink);
+  background-color: var(--card);
+  color: var(--ink);
+}
+
+.wiz-steps.steps .step[aria-current='step']::after {
+  background-color: var(--ink);
+  color: var(--solidfg);
+  animation: prod-mark-in var(--dur-med) var(--ease-out) both;
+}
+
+.wiz-steps.steps .wiz-step--complete::after {
+  content: '\f190';
+  font-family: iconfont;
+  letter-spacing: 0;
+}
+
+.wiz-steps .step[aria-current='step'] {
+  color: var(--ink);
+}
+
+.wiz-steps .wiz-step--complete {
+  color: var(--ink2);
+}
+
+.wiz-steps-btn {
+  order: 2;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+/* stretch the hit area over the number box so the whole step jumps back */
+.wiz-steps-btn::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+}
+
+.wiz-steps-btn:disabled {
+  cursor: default;
+}
+
+.wiz-steps-btn:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.wiz-step--complete .wiz-steps-btn:hover .wiz-steps-label {
+  text-decoration: underline;
+}
+
+.wiz-step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--s-lg);
+}
+
+/* wraps the visible step; --dir is +1 going forward, -1 going back */
+.wiz-stage {
+  display: flex;
+  flex-direction: column;
+}
+
+.wiz-stage[data-dir][data-state='open'] {
+  animation: prod-slide-in var(--dur-med) var(--ease-out) both;
+}
+
+.wiz-stage[data-state='closed'] {
+  pointer-events: none;
+  animation: prod-slide-out var(--dur-exit) var(--ease-in) forwards;
+}
+
+/* step popovers (search results, technology menu) must paint over the footer sibling */
+.prod-frame > .wiz-stage {
+  z-index: 2;
+}
+
+.wiz-question {
+  font-family: var(--font-title);
+  font-size: var(--t-xl);
+  font-weight: 500;
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.wiz-sub {
+  font-size: var(--t-sm);
+  color: var(--mut);
+  text-align: center;
+}
+
+.wiz-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-md);
+  padding-top: var(--s-lg);
+  border-top: 1px solid var(--line2);
+}

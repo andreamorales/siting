@@ -1,0 +1,23 @@
+@property --tb-bg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #FFFFFF;
+}
+
+@property --tb-fg {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #1C1B1B;
+}
+
+@property --tb-line {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #E6E8EA;
+}
+
+@property --tb-card {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #FDFDFC;
+}

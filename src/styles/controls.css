@@ -1,0 +1,305 @@
+/* product dropdown (components/Select.jsx) — daisyUI dropdown + menu */
+.prod-select {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.prod-select-trigger {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--s-xs);
+  min-width: 0;
+  padding: var(--s-xxs) var(--s-sm);
+  border-radius: var(--r-sm);
+  background-color: var(--card);
+  color: var(--ink);
+  font-family: var(--font-content);
+  font-size: var(--t-sm);
+  font-weight: 600;
+  text-align: left;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+}
+
+.prod-select-trigger::-webkit-details-marker {
+  display: none;
+}
+
+.prod-select-trigger:hover,
+.prod-select-trigger[aria-expanded='true'] {
+  border-color: var(--ink);
+}
+
+.prod-select-trigger:focus-visible {
+  box-shadow: 0 0 0 1px var(--ink);
+}
+
+.prod-select-value {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.prod-select-chevron {
+  flex-shrink: 0;
+  font-size: var(--t-xs);
+  color: var(--ink2);
+  transition: rotate var(--dur-fast) var(--ease-out);
+}
+
+.prod-select-trigger[aria-expanded='true'] .prod-select-chevron {
+  rotate: 180deg;
+}
+
+.prod-select-menu {
+  top: calc(100% + var(--s-xxs));
+  left: 0;
+  right: 0;
+  max-height: var(--layout-select-menu-max-h);
+  overflow-y: auto;
+  font-weight: 500;
+}
+
+.prod-select-menu button {
+  justify-content: space-between;
+  width: 100%;
+}
+
+/* header search (components/HeaderSearch.jsx) */
+.header-search {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: var(--layout-search-max);
+}
+
+.header-search-field {
+  display: flex;
+  flex: 1 1 auto;
+  align-items: center;
+  gap: var(--s-xs);
+  min-width: 0;
+  height: var(--btn-h-md);
+  padding: 0 var(--s-sm);
+  border-radius: var(--r-sm);
+  font-family: var(--font-content);
+  font-size: var(--t-sm);
+  cursor: text;
+}
+
+.header-search-icon {
+  flex-shrink: 0;
+  font-size: var(--t-xs);
+  color: var(--mut);
+}
+
+.header-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  appearance: none;
+}
+
+.header-search-input::placeholder {
+  color: var(--faint);
+}
+
+.header-search-input::-webkit-search-cancel-button,
+.header-search-input::-webkit-search-decoration {
+  appearance: none;
+}
+
+.header-search-kbd,
+.header-search-clear {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--s-xxs);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  background: var(--line2);
+  color: var(--mut);
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  line-height: 1.6;
+}
+
+.header-search-clear {
+  border-color: transparent;
+  background: transparent;
+  cursor: pointer;
+}
+
+.header-search-clear:hover,
+.header-search-clear:focus-visible {
+  outline: none;
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.header-search-menu {
+  top: calc(100% + var(--s-xxs));
+  left: 0;
+  right: 0;
+  max-height: var(--layout-select-menu-max-h);
+  overflow-y: auto;
+}
+
+.header-search-option {
+  justify-content: space-between;
+  width: 100%;
+  min-width: 0;
+}
+
+.header-search-option-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.header-search-option-meta {
+  flex-shrink: 0;
+  font-size: var(--t-xs);
+  color: var(--mut);
+}
+
+.header-search-option--all {
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  letter-spacing: 0.06em;
+  color: var(--ink2);
+}
+
+/* dashboard list toolbar (components/ListToolbar.jsx) */
+.list-toolbar {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: var(--s-xs);
+  padding: 0 var(--s-xxs) var(--s-md);
+  border-bottom: 1px solid var(--line);
+}
+
+.list-toolbar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-sm);
+}
+
+.list-toolbar-label {
+  flex: 0 0 var(--layout-toolbar-label-w);
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mut);
+}
+
+.list-chips {
+  display: flex;
+  flex: 1 1 auto;
+  gap: var(--s-xxs);
+  min-width: 0;
+}
+
+.list-chip {
+  display: inline-flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  height: var(--btn-h-sm);
+  padding: 0 var(--s-xs);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  background: transparent;
+  color: var(--ink2);
+  font-family: var(--font-title);
+  font-size: var(--btn-fs-sm);
+  font-weight: inherit;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  text-transform: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: none;
+}
+
+.list-chip:hover {
+  background: var(--line2);
+  color: var(--ink);
+}
+
+.list-chip:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.list-chip--on,
+.list-chip--on:hover {
+  border-color: var(--gray-light);
+  background: var(--gray-light);
+  color: var(--ink);
+}
+
+.list-sort .prod-select-trigger {
+  font-size: var(--t-xs);
+}
+
+.dash-list-empty {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--s-xs);
+  padding: var(--s-md);
+  border: 1px dashed var(--line);
+  border-radius: var(--r-md);
+  color: var(--mut);
+  font-size: var(--t-xs);
+  animation: prod-fade-in var(--dur-med) var(--ease-out) both;
+}
+
+.dash-list-clear {
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: var(--t-xxs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+
+.dc-card-title-row--stacked {
+  align-items: flex-start;
+}
+
+.dc-card-title-row .dc-card-head {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+@media (max-width: 720px) {
+  .header-search-kbd {
+    display: none;
+  }
+}

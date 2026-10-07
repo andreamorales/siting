@@ -1,0 +1,84 @@
+/* ── product motion — enter/exit only (tokens.css: --dur-*, --ease-*, --rise-y …).
+   Keyframes animate the individual translate/scale properties so they compose with any
+   existing transform. Reduced motion zeroes the distance tokens, leaving opacity fades. ── */
+@keyframes prod-fade-in {
+  from { opacity: 0; }
+}
+
+@keyframes prod-fade-out {
+  to { opacity: 0; }
+}
+
+@keyframes prod-rise {
+  from { opacity: 0; translate: 0 var(--rise-y); }
+}
+
+@keyframes prod-drop {
+  from { opacity: 0; translate: 0 var(--drop-y); }
+}
+
+@keyframes prod-pop-in {
+  from { opacity: 0; scale: var(--pop-scale); }
+}
+
+@keyframes prod-pop-out {
+  to { opacity: 0; scale: var(--pop-scale); }
+}
+
+@keyframes prod-collapse {
+  to { opacity: 0; translate: 0 var(--drop-y); }
+}
+
+@keyframes prod-slide-in {
+  from { opacity: 0; translate: calc(var(--dir, 1) * var(--slide-x)) 0; }
+}
+
+@keyframes prod-slide-out {
+  to { opacity: 0; translate: calc(var(--dir, 1) * -1 * var(--slide-x)) 0; }
+}
+
+@keyframes prod-mark-in {
+  from { opacity: 0; scale: var(--mark-scale); }
+}
+
+@keyframes prod-pin-in {
+  from { opacity: 0; scale: var(--pin-scale); }
+}
+
+@keyframes prod-grow-x {
+  from { scale: var(--grow-from) 1; }
+}
+
+@keyframes prod-grow-y {
+  from { scale: 1 var(--grow-from); }
+}
+
+/* stagger: set --i (0-based) on the element; capped so long lists don't trail.
+   Scoped under .st-board so it outranks the per-component `animation` shorthands. */
+.st-board .prod-stagger {
+  animation-delay: calc(min(var(--i, 0), var(--stagger-max)) * var(--stagger));
+}
+
+/* popovers (menus, suggestions) — mounted via usePresence with data-state */
+.prod-pop[data-state='open'] {
+  transform-origin: top;
+  animation: prod-pop-in var(--dur-fast) var(--ease-out) both;
+}
+
+.prod-pop[data-state='closed'],
+[data-theme='meterzero'] .dropdown-content.prod-pop[data-state='closed'] {
+  visibility: visible;
+  opacity: 1;
+  transform-origin: top;
+  pointer-events: none;
+  animation: prod-pop-out var(--dur-exit) var(--ease-in) forwards;
+}
+
+.prod-fade[data-state='open'] {
+  animation: prod-fade-in var(--dur-fast) var(--ease-out) both;
+}
+
+.prod-fade[data-state='closed'] {
+  pointer-events: none;
+  animation: prod-fade-out var(--dur-exit) var(--ease-in) forwards;
+}

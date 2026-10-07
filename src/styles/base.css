@@ -1,0 +1,303 @@
+/* Layout shells — plain CSS only (no @apply on custom tokens) */
+@layer components {
+  .siting-page {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .siting-page-body {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    overflow-y: auto;
+    gap: var(--s-lg);
+    padding: var(--layout-pad-y) var(--layout-pad-x) var(--layout-pad-x);
+  }
+
+  .siting-site-header {
+    display: flex;
+    flex-shrink: 0;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--s-lg);
+    position: relative;
+    z-index: 1;
+  }
+
+  .siting-site-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--s-sm);
+  }
+
+  .siting-site-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-lg);
+  }
+
+  .siting-tags {
+    display: flex;
+    gap: var(--s-xs);
+  }
+
+  .siting-minimap {
+    flex-shrink: 0;
+    width: var(--layout-minimap-w);
+    height: var(--layout-minimap-h);
+    overflow: hidden;
+    position: relative;
+  }
+
+  .siting-card {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    border-radius: 0;
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: var(--s-md);
+  }
+
+  .siting-bento {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+    gap: var(--s-sm);
+    align-items: flex-start;
+  }
+
+  .siting-summary-col {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    flex: 0 1 var(--layout-summary-max);
+    max-width: var(--layout-summary-max);
+    min-width: var(--layout-summary-min);
+    align-self: flex-start;
+    height: auto;
+    border-radius: 0;
+    border: 1px solid var(--line);
+    background: var(--card);
+    padding: var(--s-md);
+  }
+
+  .siting-factor-stack {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    align-self: stretch;
+    flex-direction: column;
+    gap: var(--s-sm);
+    min-height: calc(var(--layout-factor-card-min) * 3 + var(--s-sm) * 2);
+  }
+
+  .siting-factor-row {
+    display: flex;
+    min-width: 0;
+    flex: 1 1 var(--layout-factor-row-min);
+    gap: var(--s-sm);
+    min-height: var(--layout-factor-row-min);
+    align-items: stretch;
+  }
+
+  .siting-factor-cell {
+    display: flex;
+    min-width: 0;
+    min-height: var(--layout-factor-card-min);
+    flex: 1;
+  }
+
+  .siting-factor-card {
+    min-height: var(--layout-factor-card-min);
+    height: 100%;
+    position: relative;
+  }
+
+  .siting-factor-card--dimmed {
+    overflow: hidden;
+  }
+
+  .siting-factor-card--active {
+    z-index: 2;
+    overflow: visible;
+  }
+
+  .siting-grade-row {
+    display: flex;
+    align-items: center;
+    gap: var(--s-xl);
+  }
+
+  .siting-grade-tier {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-self: stretch;
+    border-left: 1px solid var(--line);
+    padding-left: var(--s-xl);
+  }
+
+  .siting-grade-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--s-lg);
+  }
+
+  .siting-grade-score-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--s-sm);
+  }
+
+  .siting-breakdown {
+    display: flex;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: var(--s-lg);
+    padding-top: var(--s-lg);
+    border-top: 1px solid var(--line2);
+  }
+
+  .siting-verdict {
+    font-size: var(--t-sm);
+    line-height: 1.5;
+    color: var(--ink2);
+    padding-top: var(--s-lg);
+    border-top: 1px solid var(--line2);
+  }
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+}
+
+* {
+  -webkit-font-smoothing: antialiased;
+}
+
+.maplibregl-map {
+  font-family: inherit;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 0 !important;
+  border: 1px solid color-mix(in srgb, var(--line) 80%, transparent) !important;
+  background: color-mix(in srgb, var(--card) 92%, transparent) !important;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18) !important;
+}
+
+.maplibregl-ctrl-group button {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--line) !important;
+}
+
+.fleet-map-shell .maplibregl-canvas {
+  filter: saturate(0.92) contrast(1.04);
+}
+
+.fleet-map-grid {
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size: 5% 7.5%;
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+}
+
+.st-dark .fleet-map-grid {
+  mix-blend-mode: screen;
+  opacity: 0.35;
+}
+
+.fleet-map-vignette {
+  background:
+    radial-gradient(ellipse at center, transparent 45%, color-mix(in srgb, var(--mapbg) 55%, transparent) 100%);
+}
+
+.fleet-pin {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 0;
+  height: 0;
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: default;
+}
+
+.fleet-pin--clickable {
+  cursor: pointer;
+}
+
+.fleet-pin__diamond {
+  position: relative;
+  z-index: 3;
+  width: 11px;
+  height: 11px;
+  transform: rotate(45deg);
+  border: 1.5px solid var(--ink2);
+  background: var(--card);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.fleet-pin--active .fleet-pin__diamond,
+.fleet-pin--clickable:hover .fleet-pin__diamond {
+  transform: rotate(45deg) scale(1.15);
+}
+
+.fleet-pin__pulse-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 1.5px solid;
+  transform: translate(-50%, -50%);
+  animation: st-pulse 2.6s ease-out infinite;
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes st-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 0.55;
+  }
+  70% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.6);
+    opacity: 0;
+  }
+}
+
+.fleet-pin__label {
+  position: absolute;
+  top: 18px;
+  left: 18px;
+  z-index: 4;
+  min-width: 120px;
+  padding: 8px 10px;
+  border: 1px solid;
+  backdrop-filter: blur(10px);
+  text-align: left;
+  pointer-events: none;
+}

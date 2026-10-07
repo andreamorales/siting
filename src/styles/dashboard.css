@@ -1,0 +1,483 @@
+/* ── dashboard ── */
+.dash-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  font-family: var(--font-content);
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.dash-page :is(h1, h2, p, ul) {
+  margin: 0;
+}
+
+.dash-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--s-md);
+  padding: var(--s-md) var(--s-lg);
+  border-bottom: 1px solid var(--line);
+  background: var(--card);
+  animation: prod-fade-in var(--dur-med) var(--ease-out) both;
+}
+
+.dash-header-start,
+.dash-header-end {
+  display: flex;
+  align-items: center;
+  gap: var(--s-md);
+}
+
+.dash-logo {
+  --tb-fg: var(--ink);
+  display: inline-flex;
+}
+
+.dash-user {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--s-xs);
+  font-size: var(--t-sm);
+  color: var(--ink2);
+}
+
+.dash-body {
+  display: flex;
+  flex: 1;
+  min-height: 0;
+}
+
+.dash-list {
+  display: flex;
+  flex: 0 0 var(--layout-dash-list-w);
+  flex-direction: column;
+  gap: var(--s-md);
+  padding: var(--s-md);
+  overflow-y: auto;
+  border-right: 1px solid var(--line);
+  background: var(--paper);
+}
+
+.dash-list-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 0 var(--s-xxs);
+  animation: prod-fade-in var(--dur-med) var(--ease-out) both;
+}
+
+.dash-list-title {
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.dash-list-count {
+  font-size: var(--t-xs);
+  color: var(--mut);
+}
+
+.dc-card {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  gap: var(--s-sm);
+  padding: var(--s-sm);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  background: var(--card);
+  cursor: pointer;
+  animation: prod-rise var(--dur-med) var(--ease-out) both;
+}
+
+.dc-card:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.dc-card--active,
+.dc-card--selected {
+  border-color: var(--ink);
+  box-shadow: 0 0.3em 1em color-mix(in srgb, var(--ink) 8%, transparent);
+}
+
+.dc-card-photo {
+  display: flex;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: var(--r-xs);
+  background: var(--line2);
+}
+
+.dc-card-photo img {
+  flex: 1 1 0;
+  min-width: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.dc-card-head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--s-xxs) / 2);
+}
+
+.dc-card-name {
+  font-family: var(--font-title);
+  font-size: var(--t-sm);
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.dc-card-loc {
+  font-size: var(--t-xs);
+  color: var(--mut);
+}
+
+.dc-card-title-row {
+  display: flex;
+  align-items: center;
+  gap: var(--s-xs);
+}
+
+.dc-card-title-row .dc-card-name {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+.dc-card-grade {
+  flex-shrink: 0;
+  padding: calc(var(--s-xxs) / 2) var(--s-xxs);
+  border: 1px solid var(--line);
+  border-radius: var(--r-xs);
+  color: var(--ink);
+  font-family: var(--font-title);
+  font-size: var(--t-xs);
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.dc-card-tags {
+  display: flex;
+  gap: var(--s-xs);
+  padding: 0;
+  list-style: none;
+}
+
+/* self-contained so it renders identically with or without daisy's .badge */
+.dc-tag {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--s-xs) var(--s-xxs);
+  border-radius: var(--r-sm);
+  background: var(--purple-light);
+  color: var(--purple-dark);
+  font-family: var(--font-content);
+  font-size: var(--t-xxs);
+  font-weight: 600;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: center;
+}
+
+.truncated-text {
+  display: block;
+  min-width: 0;
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.truncated-text-tip {
+  position: fixed;
+  z-index: 1000;
+  max-width: min(var(--layout-tip-max), 80vw);
+  padding: var(--s-xxs) var(--s-xs);
+  border-radius: var(--r-xs);
+  background: var(--solid);
+  color: var(--solidfg);
+  font-family: var(--font-content);
+  font-size: var(--t-xs);
+  line-height: 1.3;
+  white-space: normal;
+  transform: translate(-50%, calc(-100% - var(--s-xs)));
+  pointer-events: none;
+}
+
+.dc-card-actions {
+  flex-wrap: nowrap;
+  gap: var(--s-xs);
+}
+
+.dc-card-btn {
+  flex: 1 1 0;
+}
+
+.dc-card--case {
+  border-color: color-mix(in srgb, var(--case) 30%, var(--line));
+}
+
+.dc-card--case.dc-card--active,
+.dc-card--case.dc-card--selected {
+  border-color: var(--case);
+}
+
+.dash-map-wrap {
+  display: flex;
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+}
+
+.dc-map {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 0;
+  background: var(--mapbg);
+}
+
+/* maplibre sets a 12px font on its root; pin tokens should resolve from the dashboard base */
+.dc-map .maplibregl-map {
+  font-size: inherit;
+}
+
+/* basemap stays hidden until the style loads, then fades in once (pins mount after it) */
+:is(.dc-map, .loc-map):not(.map--ready) .maplibregl-canvas {
+  opacity: 0;
+}
+
+.map--ready .maplibregl-canvas {
+  animation: prod-fade-in var(--dur-slow) var(--ease-out) both;
+}
+
+.dc-map-attrib {
+  position: absolute;
+  right: var(--s-sm);
+  bottom: var(--s-xs);
+  font-size: var(--t-xxs);
+  color: var(--faint);
+  pointer-events: none;
+}
+
+/* product map marker glyph: diamond dot (inactive) cross-fading to a pulsing reticule (active) */
+.site-glyph {
+  --glyph-color: var(--ink);
+  --glyph-dot-bg: var(--line);
+  --glyph-dot-border: var(--faint);
+  position: relative;
+  display: block;
+  width: 0;
+  height: 0;
+}
+
+.site-glyph--case {
+  --glyph-color: var(--case);
+  --glyph-dot-bg: var(--case-bg);
+  --glyph-dot-border: var(--case);
+}
+
+.site-glyph-dot,
+.site-glyph-reticule {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.site-glyph-dot {
+  width: var(--layout-pin-dot);
+  height: var(--layout-pin-dot);
+  border: 1px solid var(--glyph-dot-border);
+  background: var(--glyph-dot-bg);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.site-glyph-reticule {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.site-glyph--active .site-glyph-dot {
+  opacity: 0;
+}
+
+.site-glyph--active .site-glyph-reticule {
+  opacity: 1;
+}
+
+.site-glyph-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--layout-pin-ring);
+  height: var(--layout-pin-ring);
+  border: 1px solid color-mix(in srgb, var(--glyph-color) 40%, transparent);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+}
+
+.site-glyph--active .site-glyph-ring {
+  animation: home-site-pulse 2.8s ease-out infinite;
+}
+
+.site-glyph--active .site-glyph-ring--b {
+  animation-delay: 0.9s;
+}
+
+.site-glyph--active .site-glyph-ring--c {
+  animation-delay: 1.8s;
+}
+
+.site-glyph-mark {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--layout-pin-mark);
+  height: var(--layout-pin-mark);
+  border: 1px solid var(--glyph-color);
+  background: var(--glyph-color);
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-glyph--active .site-glyph-ring {
+    animation: none;
+  }
+
+  .site-glyph--active .site-glyph-ring--a {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1.8);
+  }
+}
+
+.dc-pin {
+  position: relative;
+  display: block;
+  width: 0;
+  height: 0;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  animation: prod-pin-in var(--dur-med) var(--ease-out) both;
+}
+
+.dc-pin--static {
+  cursor: default;
+}
+
+.dc-pin::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: var(--layout-pin-hit);
+  height: var(--layout-pin-hit);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.dc-pin:focus-visible {
+  outline: none;
+}
+
+.dc-pin:focus-visible::after {
+  outline: 1px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.dc-pin:not(.dc-pin--active):is(:hover, :focus-visible) .site-glyph-dot {
+  border-color: var(--glyph-color);
+  background: var(--glyph-color);
+}
+
+.dc-pin-label {
+  --frame-extend: var(--s-xxs);
+  --frame-color: var(--line);
+  position: absolute;
+  left: calc(var(--layout-pin-ring) / 2 + var(--s-xs));
+  top: 0;
+  transform: translateY(-50%);
+  padding: var(--s-xxs) var(--s-xs);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 1px 4px color-mix(in srgb, var(--ink) 6%, transparent);
+  font-family: var(--font-content);
+  font-size: var(--t-xs);
+  font-weight: 500;
+  line-height: 1;
+  color: var(--ink);
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+/* frame lines run past the corners, echoing the homepage frame cards */
+.dc-pin-label::before {
+  content: '';
+  position: absolute;
+  left: calc(-1 * var(--frame-extend));
+  top: calc(-1 * var(--frame-extend));
+  width: calc(100% + 2 * var(--frame-extend));
+  height: calc(100% + 2 * var(--frame-extend));
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--frame-color), var(--frame-color)),
+    linear-gradient(var(--frame-color), var(--frame-color)),
+    linear-gradient(var(--frame-color), var(--frame-color)),
+    linear-gradient(var(--frame-color), var(--frame-color));
+  background-repeat: no-repeat;
+  background-position:
+    0 var(--frame-extend),
+    0 calc(100% - var(--frame-extend)),
+    var(--frame-extend) 0,
+    calc(100% - var(--frame-extend)) 0;
+  background-size:
+    100% 1px,
+    100% 1px,
+    1px 100%,
+    1px 100%;
+}
+
+.dc-pin--active .dc-pin-label {
+  --frame-color: var(--ink);
+  opacity: 1;
+}
+
+.dc-pin--case .dc-pin-label {
+  color: var(--case);
+}
+
+.dc-pin--case.dc-pin--active .dc-pin-label {
+  --frame-color: var(--case);
+}
+
+@media (max-width: 720px) {
+  .dash-body {
+    flex-direction: column-reverse;
+  }
+
+  .dash-list {
+    flex: 1 1 auto;
+    border-right: none;
+    border-top: 1px solid var(--line);
+  }
+
+  .dash-map-wrap {
+    flex: 0 0 45vh;
+  }
+
+  .dash-user {
+    display: none;
+  }
+}
